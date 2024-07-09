@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Budget Form</h1>
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        
+        <h2>Fixed Expenses</h2>
+        
+        <h3>Housing and Utilities</h3>
+        <div>
+            {{ form.housing_utilities.label }}<br>
+            {{ form.housing_utilities(size=32) }}<br>
+            {% for error in form.housing_utilities.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        
+        <h3>Communication</h3>
+        <div>
+            {{ form.communication.label }}<br>
+            {{ form.communication(size=32) }}<br>
+            {% for error in form.communication.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        
+        <h3>Transportation</h3>
+        <div>
+            {{ form.transportation.label }}<br>
+            {{ form.transportation(size=32) }}<br>
+            {% for error in form.transportation.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        
+        <h3>Education</h3>
+        <div>
+            {{ form.education.label }}<br>
+            {{ form.education(size=32) }}<br>
+            {% for error in form.education.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        
+        <h3>Savings</h3>
+        <div>
+            {{ form.savings.label }}<br>
+            {{ form.savings(size=32) }}<br>
+            {% for error in form.savings.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        
+        <h2>Variable Expenses</h2>
+        
+        <h3>Food</h3>
+        <div>
+            {{ form.food.label }}<br>
+            {{ form.food(size=32) }}<br>
+            {% for error in form.food.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        
+        <h3>Entertainment</h3>
+        <div>
+            {{ form.entertainment.label }}<br>
+            {{ form.entertainment(size=32) }}<br>
+            {% for error in form.entertainment.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        
+        <h3>Health and Personal Care</h3>
+        <div>
+            {{ form.health_personal_care.label }}<br>
+            {{ form.health_personal_care(size=32) }}<br>
+            {% for error in form.health_personal_care.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        
+        <h3>Clothing and Laundry</h3>
+        <div>
+            {{ form.clothing_laundry.label }}<br>
+            {{ form.clothing_laundry(size=32) }}<br>
+            {% for error in form.clothing_laundry.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        
+        <h3>Debt Payments</h3>
+        <div>
+            {{ form.debt_payments.label }}<br>
+            {{ form.debt_payments(size=32) }}<br>
+            {% for error in form.debt_payments.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+{% endblock %}
