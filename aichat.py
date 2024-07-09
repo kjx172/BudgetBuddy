@@ -1,6 +1,5 @@
 import openai
 
-openai.api_key = "sk-proj-Yed6NVVot5k2XJ2lgtMrT3BlbkFJKl6O9DgunBP8fUO06jkG"
 model = "GPT-4o"
 
 def chatbot():
