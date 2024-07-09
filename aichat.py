@@ -1,10 +1,10 @@
 import openai
 
-openai.api_key = ''
+openai.api_key = "sk-proj-Yed6NVVot5k2XJ2lgtMrT3BlbkFJKl6O9DgunBP8fUO06jkG"
 model = "GPT-4o"
 
 def chatbot():
-    print("Welcome to the OpenAI Chatbot! Type 'exit' to end the conversation.")
+    print("Hello! I am your financial planner! How can I help? (Type 'exit' to end the conversation)")
     
     while True:
         user_input = input("You: ")
@@ -14,9 +14,10 @@ def chatbot():
             break
 
         response = openai.ChatCompletion.create(
-            model= "GPT-4o",
+            model= "gpt-4o",
             messages=[
                 {"role": "system", "content": "You are a financial planner tasked with helping the user make smarter financial decisions"},
+                {"role": "system", "content": "Keep your responses under 500 characters"},
                 {"role": "user", "content": user_input}
             ]
         )
