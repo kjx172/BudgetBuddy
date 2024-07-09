@@ -3,6 +3,15 @@
     <h1>Budget Form</h1>
     <form method="POST" action="">
         {{ form.hidden_tag() }}
+
+        <h2>Income</h2>
+        <div>
+            {{ form.income.label }}<br>
+            {{ form.income(size=32) }}<br>
+            {% for error in form.income.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
         
         <h2>Fixed Expenses</h2>
         
