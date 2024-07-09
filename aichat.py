@@ -10,7 +10,7 @@ def generate_response(user_input):
         message = response['choices'][0]['message']['content'].strip()
         return message
 class OpenAIBot:
-    openai.api_key = "sk-proj-Oo0wuqcepxoAVDOiYiIuT3BlbkFJ0D0y57uNzQhTS7a3teN5"
+    openai.api_key = ""
     model = "GPT-4o"
 
     def generate_response():
