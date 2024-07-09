@@ -14,7 +14,7 @@ def chatbot():
             break
 
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model= "GPT-4o",
             messages=[
                 {"role": "system", "content": "You are a financial planner tasked with helping the user make smarter financial decisions"},
                 {"role": "user", "content": user_input}
