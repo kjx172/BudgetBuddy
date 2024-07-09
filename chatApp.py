@@ -21,7 +21,7 @@ def chatbot():
             response = openai.ChatCompletion.create(
                 model="gpt-4",
                 messages=[
-                    {"role": "system", "content": "You are a financial planner tasked with helping the user make smarter financial decisions"},
+                    {"role": "system", "content": "You are a financial planner tasked with helping the user make smarter financial decisions. Limit your responses to 500 characters"},
                     {"role": "user", "content": user_input}
                 ]
             )
