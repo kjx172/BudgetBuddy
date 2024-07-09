@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>OpenAI Chatbot</title>
+    <title>Financial Advisor Chatbot</title>
     <meta charset="UTF-8">
-    <meta name="description" content="OpenAI Chatbot">
+    <meta name="description" content="Financial Advisor Chatbot">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         body {
@@ -36,7 +36,7 @@
 
         .input {
             display: flex;
-            justify-content: center; /* Align items horizontally */
+            justify-content: center; 
             align-items: center;
             padding: 16px;
             text-align: center;
@@ -47,7 +47,7 @@
 
         /* Updated CSS styles for the textarea */
         .input textarea {
-            flex: 1; /* Grow to take available space */
+            flex: 1; 
             padding: 10px;
             font-size: 16px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -56,20 +56,20 @@
             resize: none;
             border-radius: 10px;
             width: 900px;
-            height: auto; /* Set initial height to auto */
-            max-height: 100px; /* Set maximum height to 200px */
-            overflow-y: auto; /* Add a vertical scrollbar if content overflows */
+            height: auto; 
+            max-height: 100px;
+            overflow-y: auto; 
         }
 
         .input input[type=submit] {
-            flex: 0; /* Don't grow, fixed width */
+            flex: 0; 
             padding: 10px;
             font-size: 17px;
             border: none;
             background: #0E6BA8;
             color: white;
             cursor: pointer;
-            width: auto; /* Allow the button to adjust its width based on content */
+            width: auto; 
             transform: translateY(-23px);
         }
 
@@ -77,10 +77,9 @@
             background: #00072D;
         }
 
-        /* Updated styles for the .messages container */
         .messages {
-            height: 50vh; /* Set a maximum height for the container */
-            overflow-y: scroll; /* Add a vertical scrollbar if content overflows */
+            height: 50vh; 
+            overflow-y: scroll; 
             padding: 16px;
             background-color: #f1f1f1;
             justify-content: top;
@@ -101,7 +100,7 @@
             background: rgba(255, 255, 255, 0);
             border: none;
             width: 80%;
-            margin-bottom: 10px; /* Add margin between messages */
+            margin-bottom: 10px; 
         }
 
         .message .bot {
@@ -137,7 +136,7 @@
 </head>
 <body>
     <div class="header">
-        <h1>Financial Planner Chatbot</h1>
+        <h1>Financial Advisor Chatbot</h1>
     </div>
     <div class="messages">
         <!-- Messages will be displayed here -->
@@ -159,9 +158,8 @@
         // Function to adjust textarea height based on content
         function adjustTextareaHeight() {
             var textarea = $('textarea[name=message]')[0];
-            textarea.style.height = 'auto'; // Reset height to auto
-            textarea.style.height = (Math.min(textarea.scrollHeight, 100)) + 'px'; // Set height up to 200px
-            // Scroll the page to the bottom
+            textarea.style.height = 'auto'; 
+            textarea.style.height = (Math.min(textarea.scrollHeight, 100)) + 'px'; 
             document.body.scrollTop = document.body.scrollHeight;
         }
 
@@ -190,30 +188,26 @@
         $('.messages').scrollTop($('.messages')[0].scrollHeight);
 
         // Send the user message to the server
-        $.post("/chat", {
-            prompt: userMessage
-        }, function(response) {
-            // Check if the response is an error message
-            if (response.startsWith("Error:")) {
-                // Display "Something went wrong" for error responses
-                $('.messages').append('<div class="message"><div class="bot">Something went wrong</div></div>');
-            } else {
+        $.ajax({
+            url: "/chat",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ message: userMessage }),
+            success: function(response) {
                 // Display the bot's response for successful responses with proper line breaks
-                $('.messages').append('<div class="message"><div class="bot">' + response.replace(/\n/g, '<br>') + '</div></div>');
+                $('.messages').append('<div class="message"><div class="bot">' + response.message.replace(/\n/g, '<br>') + '</div></div>');
+                // Scroll to the bottom of the container after adding the response
+                $('.messages').scrollTop($('.messages')[0].scrollHeight);
+                // Re-enable input elements after processing
+                toggleInputElements(false);
+            },
+            error: function() {
+                // Handle AJAX request failure (e.g., server not responding)
+                $('.messages').append('<div class="message"><div class="bot">Something went wrong</div></div>');
+                $('.messages').scrollTop($('.messages')[0].scrollHeight);
+                // Re-enable input elements after processing
+                toggleInputElements(false);
             }
-
-            // Scroll to the bottom of the container after adding the response
-            $('.messages').scrollTop($('.messages')[0].scrollHeight);
-
-            // Re-enable input elements after processing
-            toggleInputElements(false);
-        }).fail(function() {
-            // Handle AJAX request failure (e.g., server not responding)
-            $('.messages').append('<div class="message"><div class="bot">Something went wrong</div></div>');
-            $('.messages').scrollTop($('.messages')[0].scrollHeight);
-
-            // Re-enable input elements after processing
-            toggleInputElements(false);
         });
     });
 
@@ -233,7 +227,6 @@
             }
         });
 
-        // Adjust textarea height initially
         adjustTextareaHeight();
     </script>
 </body>
