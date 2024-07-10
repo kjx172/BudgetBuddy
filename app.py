@@ -10,7 +10,8 @@ python3 app.py
 '''
 
 import os
-from flask import Flask, render_template, redirect, url_for, flash, request, jsonify
+import sqlite3
+from flask import Flask, render_template, redirect, url_for, request, jsonify
 from forms import BudgetForm
 import openai
 
@@ -18,6 +19,40 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'fallback_secret_key')
 
 openai.api_key = ""
+
+# Function to create the database table
+def create_table():
+    conn = sqlite3.connect('budgetbuddy.db')
+    c = conn.cursor()
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS budget (
+            id INTEGER PRIMARY KEY,
+            income REAL,
+            housing_utilities REAL,
+            communication REAL,
+            transportation REAL,
+            education REAL,
+            savings REAL,
+            food REAL,
+            entertainment REAL,
+            health_personal_care REAL,
+            clothing_laundry REAL,
+            debt_payments REAL
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+# Function to insert data into the database
+def insert_budget_data(form_data):
+    conn = sqlite3.connect('budgetbuddy.db')
+    c = conn.cursor()
+    c.execute('''
+        INSERT INTO budget (income, housing_utilities, communication, transportation, education, savings, food, entertainment, health_personal_care, clothing_laundry, debt_payments)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ''', [float(data) for data in form_data])
+    conn.commit()
+    conn.close()
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -35,6 +70,23 @@ def home():
             'Wants': income * 0.30,
             'Savings or Debt Repayment': income * 0.20
         }
+        
+        # Insert data into the database
+        form_data = (
+            form.income.data,
+            form.housing_utilities.data,
+            form.communication.data,
+            form.transportation.data,
+            form.education.data,
+            form.savings.data,
+            form.food.data,
+            form.entertainment.data,
+            form.health_personal_care.data,
+            form.clothing_laundry.data,
+            form.debt_payments.data
+        )
+        insert_budget_data(form_data)
+        
         return render_template('home.html', form=form, income=income, expenses=expenses, percentages=percentages, ideal_amounts=ideal_amounts)
     return render_template('home.html', form=form)
 
@@ -65,4 +117,6 @@ def chatbot():
     return jsonify(response)
 
 if __name__ == '__main__':
+    create_table()  # Create the database table if it doesn't exist
     app.run(debug=True)
+    
