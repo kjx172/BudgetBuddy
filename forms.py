@@ -18,8 +18,8 @@ class BudgetForm(FlaskForm):
     savings = DecimalField('How much money do you set aside for savings each month?', validators=[DataRequired(), NumberRange(min=0)])
     
     # Variable Expenses
-    food = DecimalField('How much do you spend on groceries and dining out per month?', validators=[DataRequired(), NumberRange(min=0)])
-    entertainment = DecimalField('What is your monthly expense for entertainment, including concerts, music downloads, and movies?', validators=[DataRequired(), NumberRange(min=0)])
+    food = DecimalField('How much do you spend on groceries or a meal plan per month?', validators=[DataRequired(), NumberRange(min=0)])
+    entertainment = DecimalField('What is your monthly expense for entertainment, including dining out, concerts, music downloads, and movies?', validators=[DataRequired(), NumberRange(min=0)])
     health_personal_care = DecimalField('What is your monthly cost for medical expenses, prescriptions, hair, nails, and health club memberships?', validators=[DataRequired(), NumberRange(min=0)])
     clothing_laundry = DecimalField('How much do you spend on clothing and laundry/dry cleaning per month?', validators=[DataRequired(), NumberRange(min=0)])
     debt_payments = DecimalField('How much is your monthly payment for credit card debt?', validators=[DataRequired(), NumberRange(min=0)])
