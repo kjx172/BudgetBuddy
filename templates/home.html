@@ -1,9 +1,5 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <title>Home</title>
-</head>
-<body>
+{% extends "layout.html" %}
+{% block content %}
     <h1>Welcome to BudgetBuddy!</h1>
 
     <h2>Why BudgetBuddy?</h2>
@@ -168,5 +164,4 @@
         <li>Savings or Debt Repayment: ${{ ideal_amounts['Savings or Debt Repayment'] }}</li>
     </ul>
     {% endif %}
-</body>
-</html>
+{% endblock %}

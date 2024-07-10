@@ -90,7 +90,7 @@ def home():
         return render_template('home.html', form=form, income=income, expenses=expenses, percentages=percentages, ideal_amounts=ideal_amounts)
     return render_template('home.html', form=form)
 
-@app.route('/chatbox')
+@app.route('/chatbot')
 def chatbot_site():
     return render_template('chatbot.html')
 
