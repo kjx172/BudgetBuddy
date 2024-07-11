@@ -76,6 +76,15 @@
             margin-bottom: 20px;
             font-size: 20px;
         }
+        /* New CSS for the seamless look */
+        .second-expenses-table th,
+        .second-expenses-table td {
+            border-right: 1px solid #00072D;
+        }
+        .second-expenses-table th:last-child,
+        .second-expenses-table td:last-child {
+            border-right: none;
+        }
 
     </style>
 </head>
@@ -91,13 +100,46 @@
                 <th>Spent</th>
             </tr>
             <tr>
-                <td></td>
-                <td></td>
+                <td>Housing and Utilities</td>
+                <td>{{ expenses[0] }}</td>
             </tr>
             <tr>
-                <td></td>
-                <td></td>
+                <td>Communication</td>
+                <td>{{ expenses[1] }}</td>
             </tr>
+            <tr>
+                <td>Transportation</td>
+                <td>{{ expenses[2] }}</td>
+            </tr>
+            <tr>
+                <td>Education</td>
+                <td>{{ expenses[3] }}</td>
+            </tr>
+            <tr>
+                <td>Savings</td>
+                <td>{{ expenses[4] }}</td>
+            </tr>
+            <tr>
+                <td>Food</td>
+                <td>{{ expenses[5] }}</td>
+            </tr>
+            <tr>
+                <td>Entertainment</td>
+                <td>{{ expenses[6] }}</td>
+            </tr>
+            <tr>
+                <td>Health and Personal Care</td>
+                <td>{{ expenses[7] }}</td>
+            </tr>
+            <tr>
+                <td>Clothing</td>
+                <td>{{ expenses[8] }}</td>
+            </tr>
+            <tr>
+                <td>Debt Payments</td>
+                <td>{{ expenses[9] }}</td>
+            </tr>
+
         </table>
     </div>
     <div class="second-container">
@@ -105,23 +147,37 @@
             <table class="second-expenses-table">
                 <tr>
                     <th>Category</th>
-                    <th>Actual Expenses</th>
-                    <th>Ideal Expenses</th>
+                    <th colspan="2">Actual Spendings</th>
+                    <th colspan="2">Ideal Spendings</th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th>Actual Amount</th>
+                    <th>Actual Percentage</th>
+                    <th>Ideal Amount</th>
+                    <th>Ideal Percentage</th>
+
                 </tr>
                 <tr>
                     <td>Needs</td>
-                    <td></td>
-                    <td></td>
+                    <td>{{ actual_amounts['Needs'] }}</td>
+                    <td>{{ actual_percentages['Needs'] }}%</td>
+                    <td>{{ ideal_amounts['Needs'] }}</td>
+                    <td>{{ ideal_percentages['Needs'] }}%</td>
                 </tr>
                 <tr>
                     <td>Wants</td>
-                    <td></td>
-                    <td></td>
+                    <td>{{ actual_amounts['Wants'] }}</td>
+                    <td>{{ actual_percentages['Wants'] }}%</td>
+                    <td>{{ ideal_amounts['Wants'] }}</td>
+                    <td>{{ ideal_percentages['Wants'] }}%</td>
                 </tr>
                 <tr>
-                    <td>Savings</td>
-                    <td></td>
-                    <td></td>
+                    <td>Savings or Debt Repayment</td>
+                    <td>{{ actual_amounts['Savings or Debt Repayment'] }}</td>
+                    <td>{{ actual_percentages['Savings or Debt Repayment'] }}%</td>
+                    <td>{{ ideal_amounts['Savings or Debt Repayment'] }}</td>
+                    <td>{{ ideal_percentages['Savings or Debt Repayment'] }}%</td>
                 </tr>
             </table>
         </div>

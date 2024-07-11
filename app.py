@@ -86,8 +86,9 @@ def home():
             form.debt_payments.data
         )
         insert_budget_data(form_data)
+        # Redirect to the summary page
+        return redirect(url_for('summary'))
         
-        return render_template('home.html', form=form, income=income, expenses=expenses, percentages=percentages, ideal_amounts=ideal_amounts)
     return render_template('home.html', form=form)
 
 @app.route('/chatbot')
@@ -120,6 +121,59 @@ def chatbot():
             response = {"message": "Something went wrong"}
     
     return jsonify(response)
+
+def get_last_row():
+    conn = sqlite3.connect("budgetbuddy.db")
+    c = conn.cursor()
+    c.execute('SELECT * FROM budget ORDER BY id DESC LIMIT 1')
+    last_row = c.fetchone()
+    conn.close()
+    return last_row
+
+@app.route('/summary')
+def summary():
+    last_row = get_last_row()
+    if last_row:
+        income = last_row[1]
+        expenses = last_row[2:]
+        
+        needs = expenses[0] + expenses[5] + expenses[2] + expenses[1] + expenses[3] + expenses[7]
+        wants = expenses[6] + expenses[8]
+        savings_or_debt = expenses[4] + expenses[9]
+
+        actual_amounts = {
+            'Needs': needs,
+            'Wants': wants,
+            'Savings or Debt Repayment': savings_or_debt
+        }
+
+        actual_percentages = {
+            'Needs': (needs / income) * 100 if income > 0 else 0,
+            'Wants': (wants / income) * 100 if income > 0 else 0,
+            'Savings or Debt Repayment': (savings_or_debt / income) * 100 if income > 0 else 0
+        }
+
+        ideal_amounts = {
+            'Needs': income * 0.50,
+            'Wants': income * 0.30,
+            'Savings or Debt Repayment': income * 0.20
+        }
+
+        ideal_percentages = {
+            'Needs': 50,
+            'Wants': 30,
+            'Savings or Debt Repayment': 20
+        }
+    else:
+        income = 0
+        expenses = []
+        actual_amounts = {'Needs': 0, 'Wants': 0, 'Savings or Debt Repayment': 0}
+        actual_percentages = {'Needs': 0, 'Wants': 0, 'Savings or Debt Repayment': 0}
+        ideal_amounts = {'Needs': 0, 'Wants': 0, 'Savings or Debt Repayment': 0}
+        ideal_percentages = {'Needs': 0, 'Wants': 0, 'Savings or Debt Repayment': 0}
+
+    return render_template('summary.html', income=income, expenses = expenses, actual_amounts = actual_amounts, actual_percentages=actual_percentages, ideal_amounts=ideal_amounts, ideal_percentages=ideal_percentages)
+
 
 if __name__ == '__main__':
     create_table()  # Create the database table if it doesn't exist
