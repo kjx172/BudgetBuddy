@@ -17,11 +17,14 @@
         }
 
         .header {
-            padding: 80px;
+            padding: 20px;
             text-align: center;
             background: #0A2472;
-            color: white;
+            color: #FFFFFF;
             font-size: 30px;
+        }
+        .header h2 {
+            color: white; /* Explicitly set the text color to white */
         }
 
         .content {
@@ -49,32 +52,38 @@
             font-size: 30px;
         }
 
-        /* Updated CSS styles for the textarea */
+        .input form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
         .input textarea {
-            flex: 1; 
+            width: 600px;
+            height: 100px;
             padding: 10px;
             font-size: 16px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            border: none;
+            border: 2px solid #A6E1FA;
             background: white;
             resize: none;
             border-radius: 10px;
-            width: 900px;
-            height: auto; 
-            max-height: 100px;
-            overflow-y: auto; 
+            margin-bottom: 10px;
         }
 
         .input input[type=submit] {
-            flex: 0; 
-            padding: 10px;
+            padding: 10px 20px;
             font-size: 17px;
             border: none;
             background: #0E6BA8;
             color: white;
             cursor: pointer;
-            width: auto; 
-            transform: translateY(-23px);
+            border-radius: 10px;
+            width: 100px;
         }
 
         .input input[type=submit]:hover {
@@ -167,53 +176,53 @@
             document.body.scrollTop = document.body.scrollHeight;
         }
 
-    // When the form is submitted, send the message to the server
-    $('form').submit(function (e) {
-        e.preventDefault();
-        var userMessage = $('textarea[name=message]').val();
+        // When the form is submitted, send the message to the server
+        $('form').submit(function (e) {
+            e.preventDefault();
+            var userMessage = $('textarea[name=message]').val();
 
-        if (userMessage === '') {
-            return;
-        }
-
-        // Disable input elements while processing
-        toggleInputElements(true);
-
-        // Add the user message to the messages container with proper line breaks
-        $('.messages').append('<div class="message"><div class="user">' + userMessage.replace(/\n/g, '<br>') + '</div></div>');
-
-        // Clear the input box
-        $('textarea[name=message]').val('');
-
-        // Reset the textarea's height
-        adjustTextareaHeight();
-
-        // Scroll to the bottom of the container when a new message is added
-        $('.messages').scrollTop($('.messages')[0].scrollHeight);
-
-        // Send the user message to the server
-        $.ajax({
-            url: "/chat",
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({ message: userMessage }),
-            success: function(response) {
-                // Display the bot's response for successful responses with proper line breaks
-                $('.messages').append('<div class="message"><div class="bot">' + response.message.replace(/\n/g, '<br>') + '</div></div>');
-                // Scroll to the bottom of the container after adding the response
-                $('.messages').scrollTop($('.messages')[0].scrollHeight);
-                // Re-enable input elements after processing
-                toggleInputElements(false);
-            },
-            error: function() {
-                // Handle AJAX request failure (e.g., server not responding)
-                $('.messages').append('<div class="message"><div class="bot">Something went wrong</div></div>');
-                $('.messages').scrollTop($('.messages')[0].scrollHeight);
-                // Re-enable input elements after processing
-                toggleInputElements(false);
+            if (userMessage === '') {
+                return;
             }
+
+            // Disable input elements while processing
+            toggleInputElements(true);
+
+            // Add the user message to the messages container with proper line breaks
+            $('.messages').append('<div class="message"><div class="user">' + userMessage.replace(/\n/g, '<br>') + '</div></div>');
+
+            // Clear the input box
+            $('textarea[name=message]').val('');
+
+            // Reset the textarea's height
+            adjustTextareaHeight();
+
+            // Scroll to the bottom of the container when a new message is added
+            $('.messages').scrollTop($('.messages')[0].scrollHeight);
+
+            // Send the user message to the server
+            $.ajax({
+                url: "/chat",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ message: userMessage }),
+                success: function(response) {
+                    // Display the bot's response for successful responses with proper line breaks
+                    $('.messages').append('<div class="message"><div class="bot">' + response.message.replace(/\n/g, '<br>') + '</div></div>');
+                    // Scroll to the bottom of the container after adding the response
+                    $('.messages').scrollTop($('.messages')[0].scrollHeight);
+                    // Re-enable input elements after processing
+                    toggleInputElements(false);
+                },
+                error: function() {
+                    // Handle AJAX request failure (e.g., server not responding)
+                    $('.messages').append('<div class="message"><div class="bot">Something went wrong</div></div>');
+                    $('.messages').scrollTop($('.messages')[0].scrollHeight);
+                    // Re-enable input elements after processing
+                    toggleInputElements(false);
+                }
+            });
         });
-    });
 
         // Add event listener to textarea to handle Enter and Shift+Enter
         $('textarea[name=message]').on('keydown', function(e) {
@@ -233,5 +242,5 @@
 
         adjustTextareaHeight();
     </script>
-{% extends "layout.html" %}
-{% block content %}
+</body>
+{% endblock %}

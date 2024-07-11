@@ -115,10 +115,10 @@
     <header>
         <nav>
             <ul>
-                <li class="nav-item"><img src="{{url_for('static', filename='Week4Logo.png')}}"/></li>
-                <li class="nav-item"><button href="{{ url_for('home') }}">Home</button></li>
-                <li class="nav-item"><button href="{{ url_for('chatbot') }}">Bud</button></li>
-                <li class="nav-item"><button href="#">Summary</button></li>
+                <li class="nav-item"><img src="{{ url_for('static', filename='static/img/Week4Logo') }}"/></li>
+                <li class="nav-item"><a href="{{ url_for('home') }}"><button>Home</button></a></li>
+                <li class="nav-item"><a href="{{ url_for('chatbot_site') }}"><button>Bud</button></a></li>
+                <li class="nav-item"><a href="{{ url_for('summary') }}"><button>Summary</button></a></li>
             </ul>
         </nav>
     </header>
