@@ -12,7 +12,7 @@ BudgetBuddy is a web application designed to help college students cultivate bet
 * **Backend:** Python (Flask)
 * **Database:** SQL
 * **Frontend:** HTML, CSS, Javascript
-* **APIs:**: OpenAI
+* **APIs:** OpenAI
 
 ## Getting Started
 
