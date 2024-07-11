@@ -1,6 +1,6 @@
 # BudgetBuddy
 
-BudgetBuddy is a web application designed to help college students cultivate better financial habits and track their expense
+BudgetBuddy is a web application designed to help college students cultivate better financial habits and track their expenses
 
 ## Features
 * **Expense Tracking:** Input and categorize various expenses such as housing, utilities, food, entertainment, etc.
