@@ -13,12 +13,13 @@ import os
 import sqlite3
 from flask import Flask, render_template, redirect, url_for, request, jsonify
 from forms import BudgetForm
-import openai
+from openai import OpenAI
+
+client = OpenAI(api_key="")
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'fallback_secret_key')
 
-openai.api_key = ""
 
 # Function to create the database table
 def create_table():
@@ -70,7 +71,7 @@ def home():
             'Wants': income * 0.30,
             'Savings or Debt Repayment': income * 0.20
         }
-        
+
         # Insert data into the database
         form_data = (
             form.income.data,
@@ -88,7 +89,7 @@ def home():
         insert_budget_data(form_data)
         # Redirect to the summary page
         return redirect(url_for('summary'))
-        
+
     return render_template('home.html', form=form)
 
 @app.route('/chatbot')
@@ -98,29 +99,55 @@ def chatbot_site():
 @app.route('/chat', methods=['POST'])
 def chatbot():
     user_input = request.json.get('message')
-    
+
     if user_input.lower() == 'exit':
         response = {"message": "Goodbye!"}
     else:
+        last_row = get_last_row()
+        if last_row:
+            income = last_row[1]
+            expenses = last_row[2:]
+            initial_message = f"User's income: ${income:.2f}\n" \
+                              f"Housing and Utilities expenses: ${expenses[0]:.2f}\n" \
+                              f"Communication expenses: ${expenses[1]:.2f}\n" \
+                              f"Transportation expenses: ${expenses[2]:.2f}\n" \
+                              f"Education expenses: ${expenses[3]:.2f}\n" \
+                              f"Savings expenses: ${expenses[4]:.2f}\n" \
+                              f"Food expenses: ${expenses[5]:.2f}\n" \
+                              f"Entertainment expenses: ${expenses[6]:.2f}\n" \
+                              f"Health and Personal Care expenses: ${expenses[7]:.2f}\n" \
+                              f"Clothing expenses: ${expenses[8]:.2f}\n" \
+                              f"Debt Payments expenses: ${expenses[9]:.2f}\n"
+        else:
+            initial_message = "The user hasn't filled out the form on the home page yet. Suggest the user fill out the form."
+
         try:
-            response = openai.ChatCompletion.create(
+            response = client.chat.completions.create(
                 model="gpt-4",
                 messages=[
-                    {"role": "system", "content": "Your name is Bud. Introduce yourself only on the first message. You are a financial planner tasked with helping the user make smarter financial decisions."},
+                    {"role": "system", "content": "Your name is Bud. You are a financial planner tasked with helping the user make smarter financial decisions."},
+                    {"role": "system", "content": "Introduce yourself only on the first message."},
                     {"role": "system", "content": "Limit your responses to 500 characters"}, 
-                    {"role": "system", "content": "Be friendly and make sure your responses are clear and simple. Someone with no financial knowledge should understand"},
-                    {"role": "system", "content": "Your audience is college students. Tailor your responses to the finances and situations of the typical American college student"},
+                    {"role": "system", "content": "Be friendly and make sure your responses are clear and simple. Someone with no financial knowledge should understand."},
+                    {"role": "system", "content": "Your audience is college students. Tailor your responses to the finances and situations of the typical American college student."},
                     {"role": "system", "content": "Offer practical tips and examples whenever possible."},
-                    {"role": "system", "content": "If the user asks about budgeting, tell them about the 50/20/30 budget rule"}, 
+                    {"role": "system", "content": initial_message},
+                    {"role": "system", "content": "Remember that housing and utilities, communication, transportation, education, food, and health and personal care expenses are the user's needs. Entertainment and clothing expenses are the user's wants. Debt payment and saving expenses are the user's savings/debt repayments."},
+                    {"role": "system", "content": "If the user asks about budgeting, tell them about the 50/20/30 budget rule."},
+                    {"role": "system", "content": "Ideally, the user should allocate 50% of their income to their needs, 30% to their wants, and 20% to their savings and debt repayments."},
+                    {"role": "system", "content": "When responding to the user, consider the user's income and expense information."},
                     {"role": "user", "content": user_input}
                 ]
             )
-            message = response['choices'][0]['message']['content'].strip()
+            message = response.choices[0].message.content.strip()
             response = {"message": message}
         except Exception as e:
+            # Log the error message to understand what went wrong
+            print(f"Error: {str(e)}")
             response = {"message": "Something went wrong"}
-    
+
     return jsonify(response)
+
 
 def get_last_row():
     conn = sqlite3.connect("budgetbuddy.db")
@@ -136,7 +163,7 @@ def summary():
     if last_row:
         income = last_row[1]
         expenses = last_row[2:]
-        
+
         needs = expenses[0] + expenses[5] + expenses[2] + expenses[1] + expenses[3] + expenses[7]
         wants = expenses[6] + expenses[8]
         savings_or_debt = expenses[4] + expenses[9]
@@ -148,9 +175,9 @@ def summary():
         }
 
         actual_percentages = {
-            'Needs': (needs / income) * 100 if income > 0 else 0,
-            'Wants': (wants / income) * 100 if income > 0 else 0,
-            'Savings or Debt Repayment': (savings_or_debt / income) * 100 if income > 0 else 0
+            'Needs': round((needs / income) * 100, 2) if income > 0 else 0,
+            'Wants': round((wants / income) * 100, 2) if income > 0 else 0,
+            'Savings or Debt Repayment': round((savings_or_debt / income) * 100, 2) if income > 0 else 0
         }
 
         ideal_amounts = {
@@ -178,4 +205,4 @@ def summary():
 if __name__ == '__main__':
     create_table()  # Create the database table if it doesn't exist
     app.run(debug=True)
-    
+
