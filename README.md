@@ -27,6 +27,7 @@ BudgetBuddy is a web application designed to help college students cultivate bet
 1. Clone the repository 
 
     > git clone https://github.com/abarajas4/BudgetBuddy.git
+    > 
     > cd BudgetBuddy
 
 2. Create a virtual environment and activate it
