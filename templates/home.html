@@ -1,165 +1,240 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>Welcome to BudgetBuddy!</h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Advisor Chatbot</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            padding: 20px 50px;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+            background-color: #0A2472;
+            color: #ffff; 
+        }
+        header h1 {
+            color: white;
+        }
+        .nav-title {
+            margin-right: auto;
+            font-size: 1.5em;
+            color: black;
+        }
+        header li {
+            list-style: none;
+            display: inline-block;
+            padding: 0 20px;
+        }
+        header button {
+            text-decoration: none;
+            color: #0A2472;
+            background-color: #fff;
+            font-size: 20px;
+            border: none;
+            border-radius: 10px;
+            padding: 15px;
+            transition: all 0.3s ease;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+        }
+        header button:hover {
+            background-color: #b2bddf;
+            color: #fff;
+        }
+        main {
+            margin: 20px 50px;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #0E6BA8; 
+            margin-left: 0; /* Align the form to the left */
+        }
+    
+        form h2, form h3 {
+            color: #ffff;
+        }
 
-    <h2>Why BudgetBuddy?</h2>
 
-    <p>Many students start earning their first income in college, but they often have less experience in managing finances. </p>
-    <p>We are here to fix that!</p>
+        input[type=text] {
+            width: calc(100% - 24px); /* Adjusted to accommodate left and right padding */
+            padding-left: 12px; /* Add padding to the left */
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        h1, h2, h3 {
+            color: #0A2472;
+        }
+        #submit {
+            background-color: #0A2472;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type=submit]:hover {
+            background-color: #084B7C;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+        div {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        div h3 {
+            margin-top: 0;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header class="txt">
+        <h1>Welcome to BudgetBuddy!</h1>
+    </header>
+    <main>
+        <h2>Why BudgetBuddy?</h2>
+        <p>Many students start earning their first income in college, but they often have less experience in managing finances. We are here to fix that!</p>
+        <p>BudgetBuddy provides a user-friendly platform for college students to manage their finances and access personalized financial advice. Having BudgetBuddy as their best friend, students can effectively control their money, gain peace of mind, and focus on their studies while enjoying college life.</p>
+        <h2>How to get started with your BudgetBuddy experience?</h2>
+        <p>It's very simple! Just follow these steps:</p>
+        <ol>
+            <li>Fill out the form below.
+                <p>The form will ask you 1 question about your income and 10 questions about your spendings for BudgetBuddy to understand your financial needs.</p>
+                <ul>
+                    <li>Tip: For yearly expenses like textbooks, you can divide the total expense into twelve months and enter that amount.</li>
+                </ul>
+            </li>
+            <li>Read through the summary.
+                <p>After you fill out the form, we will generate a summary of your current budget and what your ideal budget should look like according to the 50/30/20 rule.</p>
+                <ul>
+                    <li>Tip: You can read more on the 50/30/20 rule by <a href="https://www.forbes.com/advisor/banking/guide-to-50-30-20-budget/" target="_blank">clicking here</a>.</li>
+                </ul>
+            </li>
+            <li>Go to the summary transaction page.
+                <p>The summary transaction page will help you see your spendings in more detail.</p>
+            </li>
+            <li>Chat with your Bud!
+                <p>Go to the Bud page and ask for financial advice from our financial advisor chatbot, Bud.</p>
+            </li> 
+            <li>Experience the comfort and security that your BudgetBuddy brings to you!</li>
+        </ol>
+        <h2>Budget Form</h2>
+        <form method="POST" action="{{ url_for('home') }}">
+            {{ form.hidden_tag() }}
+            <h2>Income</h2>
+            <div>
+                {{ form.income.label }}<br>
+                {{ form.income(size=32) }}<br>
+                {% for error in form.income.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <h2>Fixed Expenses</h2>
+            <h3>Housing and Utilities</h3>
+            <div>
+                {{ form.housing_utilities.label }}<br>
+                {{ form.housing_utilities(size=32) }}<br>
+                {% for error in form.housing_utilities.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <h3>Communication</h3>
+            <div>
+                {{ form.communication.label }}<br>
+                {{ form.communication(size=32) }}<br>
+                {% for error in form.communication.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <h3>Transportation</h3>
+            <div>
+                {{ form.transportation.label }}<br>
+                {{ form.transportation(size=32) }}<br>
+                {% for error in form.transportation.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <h3>Education</h3>
+            <div>
+                {{ form.education.label }}<br>
+                {{ form.education(size=32) }}<br>
+                {% for error in form.education.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <h3>Savings</h3>
+            <div>
+                {{ form.savings.label }}<br>
+                {{ form.savings(size=32) }}<br>
+                {% for error in form.savings.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <h2>Variable Expenses</h2>
+            <h3>Food</h3>
+            <div>
+                {{ form.food.label }}<br>
+                {{ form.food(size=32) }}<br>
+                {% for error in form.food.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <h3>Entertainment</h3>
+            <div>
+                {{ form.entertainment.label }}<br>
+                {{ form.entertainment(size=32) }}<br>
+                {% for error in form.entertainment.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <h3>Health and Personal Care</h3>
+            <div>
+                {{ form.health_personal_care.label }}<br>
+                {{ form.health_personal_care(size=32) }}<br>
+                {% for error in form.health_personal_care.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <h3>Clothing</h3>
+            <div>
+                {{ form.clothing_laundry.label }}<br>
+                {{ form.clothing_laundry(size=32) }}<br>
+                {% for error in form.clothing_laundry.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <h3>Other</h3>
+            <div>
+                {{ form.other.label }}<br>
+                {{ form.other(size=32) }}<br>
+                {% for error in form.other.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <input id="submit" type="submit" value="Submit">
+        </form>
+    </main>
+</body>
+{% extends "layout.html" %}
+{% block content %}
 
-    <p>BudgetBuddy provides a user-friendly platform for college students to manage their finances and access personalized financial advice. Having BudgetBuddy as their best friend, students can effectively control their money, gain peace of mind, and focus on their studies while enjoying college life.</p>
-
-    <h2>How to get started with your BudgetBuddy experience?</h2>
-    <p>It's very simple! Just follow these steps:</p>
-    <ol>
-        <li>Fill out the form below.
-            <p>The form will ask you 1 question about your income and 10 questions about your spendings for BudgetBuddy to understand your financial needs.</p>
-            <ul>
-                <li>Tip: For yearly expenses like textbooks, you can divide the total expense into twelve months and enter that amount.</li>
-            </ul>
-        </li>
-        <li>Read through the summary.
-            <p>After you fill out the form, we will generate a summary of your current budget and what your ideal budget should look like according to the 50/30/20 rule.</p>
-            <ul>
-                <li>Tip: You can read more on the 50/30/20 rule by <a href="https://www.forbes.com/advisor/banking/guide-to-50-30-20-budget/" target="_blank">clicking here</a>.</li>
-            </ul>
-        </li>
-        <li>Go to the summary transaction page.
-            <p>The summary transaction page will help you see your spendings in more detail.</p>
-        </li>
-
-        <li>Chat with your Bud!
-        <p>Go to the Bud page and ask for financial advice from our financial advisor chatbot, Bud.</p>
-        </li> 
-        <li>Experience the comfort and security that your BudgetBuddy brings to you!</li>
-    </ol>
-
-    <h2>Budget Form</h2>
-    <form method="POST" action="{{ url_for('home') }}">
-        {{ form.hidden_tag() }}
-        
-        <h2>Income</h2>
-        <div>
-            {{ form.income.label }}<br>
-            {{ form.income(size=32) }}<br>
-            {% for error in form.income.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </div>
-        
-        <h2>Fixed Expenses</h2>
-        
-        <h3>Housing and Utilities</h3>
-        <div>
-            {{ form.housing_utilities.label }}<br>
-            {{ form.housing_utilities(size=32) }}<br>
-            {% for error in form.housing_utilities.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </div>
-        
-        <h3>Communication</h3>
-        <div>
-            {{ form.communication.label }}<br>
-            {{ form.communication(size=32) }}<br>
-            {% for error in form.communication.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </div>
-        
-        <h3>Transportation</h3>
-        <div>
-            {{ form.transportation.label }}<br>
-            {{ form.transportation(size=32) }}<br>
-            {% for error in form.transportation.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </div>
-        
-        <h3>Education</h3>
-        <div>
-            {{ form.education.label }}<br>
-            {{ form.education(size=32) }}<br>
-            {% for error in form.education.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </div>
-        
-        <h3>Savings</h3>
-        <div>
-            {{ form.savings.label }}<br>
-            {{ form.savings(size=32) }}<br>
-            {% for error in form.savings.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </div>
-        
-        <h2>Variable Expenses</h2>
-        
-        <h3>Food</h3>
-        <div>
-            {{ form.food.label }}<br>
-            {{ form.food(size=32) }}<br>
-            {% for error in form.food.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </div>
-        
-        <h3>Entertainment</h3>
-        <div>
-            {{ form.entertainment.label }}<br>
-            {{ form.entertainment(size=32) }}<br>
-            {% for error in form.entertainment.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </div>
-        
-        <h3>Health and Personal Care</h3>
-        <div>
-            {{ form.health_personal_care.label }}<br>
-            {{ form.health_personal_care(size=32) }}<br>
-            {% for error in form.health_personal_care.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </div>
-        
-        <h3>Clothing</h3>
-        <div>
-            {{ form.clothing_laundry.label }}<br>
-            {{ form.clothing_laundry(size=32) }}<br>
-            {% for error in form.clothing_laundry.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </div>
-        
-        <h3>Debt Payments</h3>
-        <div>
-            {{ form.debt_payments.label }}<br>
-            {{ form.debt_payments(size=32) }}<br>
-            {% for error in form.debt_payments.errors %}
-                <span style="color: red;">[{{ error }}]</span>
-            {% endfor %}
-        </div>
-        
-        <div>
-            <button type="submit">Submit</button>
-        </div>
-    </form>
-
-    {% if income %}
-    <h2>Budget Summary</h2>
-    <p>Monthly Income: ${{ income }}</p>
-    <h2>Actual Spending</h2>
-    <ul>
-        <li>Needs: ${{ expenses['Needs'] }} ({{ percentages['Needs'] }}%)</li>
-        <li>Wants: ${{ expenses['Wants'] }} ({{ percentages['Wants'] }}%)</li>
-        <li>Savings or Debt Repayment: ${{ expenses['Savings or Debt Repayment'] }} ({{ percentages['Savings or Debt Repayment'] }}%)</li>
-    </ul>
-    <h2>Ideal Spending (50/30/20 Rule)</h2>
-    <ul>
-        <li>Needs: ${{ ideal_amounts['Needs'] }}</li>
-        <li>Wants: ${{ ideal_amounts['Wants'] }}</li>
-        <li>Savings or Debt Repayment: ${{ ideal_amounts['Savings or Debt Repayment'] }}</li>
-    </ul>
-    {% endif %}
-{% endblock %}
