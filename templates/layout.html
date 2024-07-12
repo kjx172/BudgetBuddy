@@ -6,7 +6,7 @@
     <title>{{ title }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700&display=swap" rel="stylesheet">
     <style>
         /* NAVIGATION BAR */ 
         body {
@@ -14,14 +14,22 @@
         }
         header {
             display: flex;
-            /*justify-content: space-around;*/
-            align-items: left;
+            align-items: center;
             padding: 20px 50px;
             box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
             background-color: #18286d;
         }
 
-        #nav-title {
+        .logo {
+            margin-right: auto;
+        }
+
+        .logo img {
+            height: 50px; /* Adjust height as needed */
+            width: auto;
+        }
+
+        .nav-title {
             margin-right: auto;
             font-size: 1.5em;
         }
@@ -49,6 +57,7 @@
             box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
             color: #262e8a;
         }
+
         main {
             margin-left: 50px;
         }
@@ -115,7 +124,7 @@
     <header>
         <nav>
             <ul>
-                <li class="nav-item"><img src="{{ url_for('static', filename='static/img/Week4Logo') }}"/></li>
+                <li class="logo"><img src="{{ url_for('static', filename='img/Week4Logo.png') }}" alt="Logo"/></li>
                 <li class="nav-item"><a href="{{ url_for('home') }}"><button>Home</button></a></li>
                 <li class="nav-item"><a href="{{ url_for('chatbot_site') }}"><button>Bud</button></a></li>
                 <li class="nav-item"><a href="{{ url_for('summary') }}"><button>Summary</button></a></li>

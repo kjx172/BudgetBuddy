@@ -6,6 +6,7 @@ Redirects to the same page to clear the form and prevent resubmission issues.
 
 To run the code, copy and paste this:
 export SECRET_KEY=$(python3 -c 'import os; print(os.urandom(24))')
+export OPENAI_API_KEY='your-openai-key'
 python3 app.py
 '''
 
@@ -15,7 +16,14 @@ from flask import Flask, render_template, redirect, url_for, request, jsonify
 from forms import BudgetForm
 from openai import OpenAI
 
-client = OpenAI(api_key="")
+# Fetch the API key from the environment variable
+api_key = os.getenv('OPENAI_API_KEY', '')
+
+# Ensure the api_key is provided
+if not api_key:
+    raise ValueError("No API key found. Please set the OPENAI_API_KEY environment variable.")
+
+client = OpenAI(api_key=api_key)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'fallback_secret_key')

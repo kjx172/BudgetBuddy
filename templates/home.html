@@ -223,11 +223,11 @@
                     <span class="error">[{{ error }}]</span>
                 {% endfor %}
             </div>
-            <h3>Other</h3>
+            <h3>Debt Payments</h3>
             <div>
-                {{ form.other.label }}<br>
-                {{ form.other(size=32) }}<br>
-                {% for error in form.other.errors %}
+                {{ form.debt_payments.label }}<br>
+                {{ form.debt_payments(size=32) }}<br>
+                {% for error in form.debt_payments.errors %}
                     <span class="error">[{{ error }}]</span>
                 {% endfor %}
             </div>
@@ -235,6 +235,4 @@
         </form>
     </main>
 </body>
-{% extends "layout.html" %}
-{% block content %}
-
+{% endblock %}
