@@ -7,36 +7,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700&display=swap" rel="stylesheet">
     <style>
+        body, div, table {
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
         body {
             font-family: "Lato", sans-serif;
             margin: 0;
             padding: 0; 
         }
+
         .header {
+            width: 80%; /* Match the width of the summary page header */
+            margin: 30px auto 0 auto; /* Adds white space between the navbar and the header, centers horizontally */
             padding: 20px;
             text-align: center;
             background: #0A2472;
-            color: #FFFF;
+            color: #FFFFFF;
             font-size: 30px;
         }
+
         .header h2 {
             color: white; /* Explicitly set the text color to white */
         }
-        
+
         .container, .second-container {
             width: 70%;
             margin: 50px auto;
-            background: #0E6BA8;
-            padding: 20;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
         .summary-header, .second-summary-header {
             text-align: center;
-            margin-bottom: 20x;
+            margin-bottom: 20px;
             font-size: 20px;
         }
 
@@ -44,6 +50,7 @@
             width: 100%;
             border-collapse: collapse;
         }
+
         .expenses-table {
             font-size: 16px;
         }
@@ -70,35 +77,22 @@
             text-align: left;
         }
 
-        .second-container {
-            width: 80%;
-            margin: 50px auto;
-            background: #0E6BA8;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        .second-summary-header {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 20px;
-        }
-        /* New CSS for the seamless look */
         .second-expenses-table th, .second-expenses-table td {
             text-align: center; 
-            border-right: 1px solid #00072D;
         }
-        .second-expenses-table th:last-child, .second-expenses-table td:last-child {
-            border-right: none;
-        }
-        /* New CSS to change the background color of the first rows */
+
         .expenses-table tr:first-child th,
         .expenses-table tr:nth-child(2) th,
         .second-expenses-table tr:first-child th,
         .second-expenses-table tr:nth-child(1) th {
             background-color: #A6E1FA;
         }
+
+        /* Ensure the rightmost border of the table is visible */
+        .second-expenses-table th:last-child, .second-expenses-table td:last-child {
+            border-right: 2px solid #00072D;
+        }
+
         .advice-box {
             margin: 50px auto;
             text-align: center;
@@ -108,7 +102,7 @@
             border-radius: 10px;
             width: 80%;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            font-size: 24px; 
+            font-size: 24px;
         }
 
         .advice-box a {
@@ -126,7 +120,6 @@
         .advice-box a:hover {
             background: #00072D;
         }
-
     </style>
 </head>
 <body>
@@ -180,7 +173,6 @@
                 <td>Debt Payments</td>
                 <td>{{ expenses[9] }}</td>
             </tr>
-
         </table>
     </div>
     <div class="second-container">
@@ -197,7 +189,6 @@
                     <th>Actual Percentage</th>
                     <th>Ideal Amount</th>
                     <th>Ideal Percentage</th>
-
                 </tr>
                 <tr>
                     <td>Needs</td>
@@ -229,5 +220,3 @@
     </div>
 </body>
 {% endblock %}
-
-
