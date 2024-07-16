@@ -12,9 +12,10 @@ python3 app.py
 
 import os
 import sqlite3
-from flask import Flask, render_template, redirect, url_for, request, jsonify
+from flask import Flask, render_template, redirect, url_for, request, jsonify, flash
 from forms import BudgetForm
 from openai import OpenAI
+import git
 
 # Fetch the API key from the environment variable
 api_key = os.getenv('OPENAI_API_KEY', '')
