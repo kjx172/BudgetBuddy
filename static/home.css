@@ -1,0 +1,97 @@
+body {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+header {
+    display: flex;
+    align-items: center;
+    padding: 20px 50px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    background-color: #0A2472;
+    color: #ffff; 
+}
+header h1 {
+    color: white;
+}
+.nav-title {
+    margin-right: auto;
+    font-size: 1.5em;
+    color: black;
+}
+header li {
+    list-style: none;
+    display: inline-block;
+    padding: 0 20px;
+}
+header button {
+    text-decoration: none;
+    color: #0A2472;
+    background-color: #fff;
+    font-size: 20px;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    transition: all 0.3s ease;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+header button:hover {
+    background-color: #b2bddf;
+    color: #fff;
+}
+main {
+    margin: 20px 50px;
+}
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: #0E6BA8; 
+    margin-left: 0; /* Align the form to the left */
+}
+
+form h2, form h3 {
+    color: #ffff;
+}
+
+
+input[type=text] {
+    width: calc(100% - 24px); /* Adjusted to accommodate left and right padding */
+    padding-left: 12px; /* Add padding to the left */
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+h1, h2, h3 {
+    color: #0A2472;
+}
+#submit {
+    background-color: #0A2472;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+input[type=submit]:hover {
+    background-color: #084B7C;
+}
+.error {
+    color: red;
+    font-size: 0.9em;
+}
+div {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+div h3 {
+    margin-top: 0;
+    font-size: 1.2em;
+    color: #333;
+}
