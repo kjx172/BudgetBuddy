@@ -24,8 +24,8 @@ BudgetBuddy is a web application designed to help college students cultivate bet
 #### For running locally / deployed site is down
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/your-username/crowdsync.git
-   cd crowdsync
+   git clone https://github.com/kjx172/BudgetBuddy.git
+   cd BudgetBuddy
 2. **Install dependencies:**
    Ensure you have Python and pip installed. Then run:
    ```sh
