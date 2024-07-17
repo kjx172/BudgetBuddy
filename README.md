@@ -1,4 +1,4 @@
-# BudgetBuddy (test)
+# BudgetBuddy (test1)
 
 BudgetBuddy is a web application designed to help college students cultivate better financial habits and track their expenses
 
