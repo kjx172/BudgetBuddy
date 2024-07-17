@@ -1,2 +1,8 @@
 # Ignore files related to API keys
 .env
+
+#ignore pycache
+__pycache__/
+
+#for mac users ignore folder configuration files
+.DS_Store
