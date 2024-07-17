@@ -244,10 +244,6 @@ def webhook():
         return 'Updated PythonAnywhere successfully', 200
     else:
         return 'Wrong event type', 400
-    
-@app.route('/about')
-def about():
-    return render_template('about.html')
 
 if __name__ == '__main__':
     create_table()  # Create the database table if it doesn't exist
