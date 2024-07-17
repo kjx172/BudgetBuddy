@@ -1,4 +1,4 @@
-# BudgetBuddy (test)
+# BudgetBuddy
 
 BudgetBuddy is a web application designed to help college students cultivate better financial habits and track their expenses
 
@@ -14,34 +14,31 @@ BudgetBuddy is a web application designed to help college students cultivate bet
 * **Frontend:** HTML, CSS, Javascript
 * **APIs:** OpenAI
 
-## Getting Started
-
-### Prerequisites
-
-* Python 3.11
-* pip 
-* Flask
-* SQL
-
-### Installation 
-1. Clone the repository 
-
-    > git clone https://github.com/abarajas4/BudgetBuddy.git
-    > 
-    > cd BudgetBuddy
-
-2. Create a virtual environment and activate it
-    > python3 -m venv venv
-    > 
-    > source venv/bin/activate
-
-3. Install requirements
-4. Run the application
-
-### Usage 
-1. Open your web browser and go to http://127.0.0.1:5000/.
+## Usage
+#### For using the deployed project
+1. Navigate to the [BudgetBuddy](BudgetBuddy12345.pythonanywhere.com) homepage.
 2. Fill out the form with your income and expenses
 3. View the summary of your expenses, recommended budget allocations, and financial advisor tips
+
+## Setup
+#### For running locally / deployed site is down
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/your-username/crowdsync.git
+   cd crowdsync
+2. **Install dependencies:**
+   Ensure you have Python and pip installed. Then run:
+   ```sh
+   pip install -r requirements.txt
+3. **Set up environment variables:**
+   Create a .env file in the root directory and add your Ticketmaster API credentials:
+   ```sh
+   API_KEY=your_ticketmaster_api_key
+   API_SECRET=your_ticketmaster_api_secret
+4. **Run the application:**
+   ```sh
+   python app.py
+   The application will be accessible at http://127.0.0.1:5000/.
 
 ## Contributing
 1. Fork the repository
@@ -52,6 +49,4 @@ BudgetBuddy is a web application designed to help college students cultivate bet
 6. Open a pull requirements
 
 ## Contributors 
-- Beste Kuruefe, Andre Barajas, Hamid Ali, Yuneydy Paredes
-
-
+- Beste Kuruefe, Andre Barajas, Hamid Ali, Yuneydy Paredes, Aaron Kisitu
