@@ -8,42 +8,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='Account.css') }}">
 </head>
 
 <body>
-    <header class="txt">
-        <h1>Welcome to BudgetBuddy!</h1>
-    </header>
+    
     <main>
-        <h2>Why BudgetBuddy?</h2>
-        <p>Many students start earning their first income in college, but they often have less experience in managing finances. We are here to fix that!</p>
-        <p>BudgetBuddy provides a user-friendly platform for college students to manage their finances and access personalized financial advice. Having BudgetBuddy as their best friend, students can effectively control their money, gain peace of mind, and focus on their studies while enjoying college life.</p>
-        <h2>How to get started with your BudgetBuddy experience?</h2>
-        <p>It's very simple! Just follow these steps:</p>
-        <ol>
-            <li>Fill out the form below.
-                <p>The form will ask you 1 question about your income and 10 questions about your spendings for BudgetBuddy to understand your financial needs.</p>
-                <ul>
-                    <li>Tip: For yearly expenses like textbooks, you can divide the total expense into twelve months and enter that amount.</li>
-                </ul>
-            </li>
-            <li>Read through the summary.
-                <p>After you fill out the form, we will generate a summary of your current budget and what your ideal budget should look like according to the 50/30/20 rule.</p>
-                <ul>
-                    <li>Tip: You can read more on the 50/30/20 rule by <a href="https://www.forbes.com/advisor/banking/guide-to-50-30-20-budget/" target="_blank">clicking here</a>.</li>
-                </ul>
-            </li>
-            <li>Go to the summary transaction page.
-                <p>The summary transaction page will help you see your spendings in more detail.</p>
-            </li>
-            <li>Chat with your Bud!
-                <p>Go to the Bud page and ask for financial advice from our financial advisor chatbot, Bud.</p>
-            </li> 
-            <li>Experience the comfort and security that your BudgetBuddy brings to you!</li>
-        </ol>
         <h2>Budget Form</h2>
-        <form method="POST" action="{{ url_for('home') }}">
+        <form method="POST" action="{{ url_for('account') }}">
             {{ form.hidden_tag() }}
             <h2>Income</h2>
             <div>
