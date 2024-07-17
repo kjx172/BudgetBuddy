@@ -11,14 +11,12 @@
 </head>
 <body> 
     <header>
-        <nav>
-            <ul>
-                <li class="logo"><img src="{{ url_for('static', filename='Week4Logo.png') }}" alt="Logo"/></li>
-                <li class="nav-item"><a href="{{ url_for('home') }}"><button>Home</button></a></li>
-                <li class="nav-item"><a href="{{ url_for('chatbot_site') }}"><button>Bud</button></a></li>
-                <li class="nav-item"><a href="{{ url_for('summary') }}"><button>Summary</button></a></li>
-            </ul>
-        </nav>
+        <img src="{{ url_for('static', filename='Week4Logo.png') }}" alt="Logo"/>
+        <ul>
+            <li class="nav-item"><a href="{{ url_for('account') }}"><button>Account</button></a></li>
+            <li class="nav-item"><a href="{{ url_for('chatbot_site') }}"><button>Bud</button></a></li>
+            <li class="nav-item"><a href="{{ url_for('summary') }}"><button>Summary</button></a></li>
+        </ul>
     </header>
     <main>
         {% block content %}{% endblock %}

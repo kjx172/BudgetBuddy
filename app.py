@@ -74,7 +74,7 @@ def insert_budget_data(form_data):
     conn.close()
 
 @app.route('/', methods=['GET', 'POST'])
-def home():
+def account():
     form = BudgetForm()
     if form.validate_on_submit():
         income = float(form.income.data)
@@ -108,7 +108,7 @@ def home():
         # Redirect to the summary page
         return redirect(url_for('summary'))
 
-    return render_template('home.html', form=form)
+    return render_template('account.html', form=form)
 
 @app.route('/chatbot')
 def chatbot_site():
