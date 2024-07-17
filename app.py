@@ -16,9 +16,18 @@ from flask import Flask, render_template, redirect, url_for, request, jsonify, f
 from forms import BudgetForm
 from openai import OpenAI
 import git
+import string
+import secrets
+from dotenv import load_dotenv
+load_dotenv()
 
 # Fetch the API key from the environment variable
-api_key = os.getenv('OPENAI_API_KEY', '')
+api_key = os.getenv('OPENAI_API_KEY')
+
+# Function to generate a random secret key
+def generate_random_key(length=24):
+    alphabet = string.ascii_letters + string.digits + '!@#$%^&*(-_=+)'
+    return ''.join(secrets.choice(alphabet) for _ in range(length))
 
 # Ensure the api_key is provided
 if not api_key:
@@ -27,7 +36,7 @@ if not api_key:
 client = OpenAI(api_key=api_key)
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'fallback_secret_key')
+app.config['SECRET_KEY'] = generate_random_key()
 
 
 # Function to create the database table
