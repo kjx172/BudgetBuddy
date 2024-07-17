@@ -222,7 +222,7 @@ def summary():
 @app.route("/update_server", methods=['POST'])
 def webhook():
     if request.method == 'POST':
-        repo = git.Repo('/home/projectname/github-repo-name')
+        repo = git.Repo('/home/BudgetBuddy/BudgetBuddy')
         origin = repo.remotes.origin
         origin.pull()
         return 'Updated PythonAnywhere successfully', 200
