@@ -73,8 +73,24 @@ def insert_budget_data(form_data):
     conn.commit()
     conn.close()
 
-@app.route('/', methods=['GET', 'POST'])
+def get_last_row():
+    conn = sqlite3.connect("budgetbuddy.db")
+    c = conn.cursor()
+    c.execute('SELECT * FROM budget ORDER BY id DESC LIMIT 1')
+    last_row = c.fetchone()
+    conn.close()
+    return last_row
+
+@app.route('/home', methods=['GET', 'POST'])
 def home():
+    #this accepts the username and password from login page, change for functionality
+    if request.method == "POST":
+        username  = request.form['username']
+        password = request.form['password']
+
+        #if the username, password isnt alr stored send them back
+        #print(username, password)
+    
     form = BudgetForm()
     if form.validate_on_submit():
         income = float(form.income.data)
@@ -166,15 +182,6 @@ def chatbot():
 
     return jsonify(response)
 
-
-def get_last_row():
-    conn = sqlite3.connect("budgetbuddy.db")
-    c = conn.cursor()
-    c.execute('SELECT * FROM budget ORDER BY id DESC LIMIT 1')
-    last_row = c.fetchone()
-    conn.close()
-    return last_row
-
 @app.route('/summary')
 def summary():
     last_row = get_last_row()
@@ -218,6 +225,15 @@ def summary():
         ideal_percentages = {'Needs': 0, 'Wants': 0, 'Savings or Debt Repayment': 0}
 
     return render_template('summary.html', income=income, expenses = expenses, actual_amounts = actual_amounts, actual_percentages=actual_percentages, ideal_amounts=ideal_amounts, ideal_percentages=ideal_percentages)
+
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    return render_template('login.html')
+
+@app.route('/about', methods=['GET', 'POST'])
+def about():
+    return render_template('about.html')
 
 @app.route("/update_server", methods=['POST'])
 def webhook():
