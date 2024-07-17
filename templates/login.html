@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <title>Login and Sign Up</title>
+</head>
+
+<body>
+    <nav>
+        <img src="{{ url_for('static', filename='Week4Logo.png') }}" alt="Logo"/>
+        <h1>Welcome to BudgetBuddy!</h1>
+        <a href="{{ url_for('about') }}"><button>About Us</button></a>
+    </nav>
+    
+    <main>
+        <div class="log-in visible" id="log-in">
+            <h3>Log in</h3>
+            <!---change the /home to wherever the form username/password is being sent-->
+            <form action="/home" method="POST" name = "log-in">
+                <label for="login-username">Username:</label>
+                <input type="text" id="login-username" name="username">
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="password">
+                <input type="submit" value="Submit">
+                <p class="error" id="login-error" style="display: none;">Please enter a username and password.</p>
+            </form>
+            <p><a href="#" id="show-sign-up">Don't have an account? Sign up</a></p>
+        </div>
+
+        <div class="sign-up" id="sign-up" style="display:none;">
+            <h3>Sign up</h3>
+            <!---change the /home to wherever the form username/password is being sent-->
+            <form action="/home" method="POST" name="sign-up">
+                <label for="signup-username">Username:</label>
+                <input type="text" id="signup-username" name="username">
+                <label for="signup-password">Password:</label>
+                <input type="password" id="signup-password" name="password">
+                <input type="submit" value="Submit">
+                <p class="error" id="signup-error" style="display: none;">Please enter a username and password.</p>
+            </form>
+            <p><a href="#" id="show-log-in">Already have an account? Log in</a></p>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('show-log-in').addEventListener('click', function() {
+            document.getElementById('log-in').style.display = 'block';
+            document.getElementById('sign-up').style.display = 'none';
+        });
+
+        document.getElementById('show-sign-up').addEventListener('click', function() {
+            document.getElementById('sign-up').style.display = 'block';
+            document.getElementById('log-in').style.display = 'none';
+        });
+
+        document.querySelector('form[name="log-in"]').addEventListener('submit', function(event) {
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            if (!username || !password) {
+                event.preventDefault();
+                document.getElementById('login-error').style.display = 'block';
+            } else {
+                document.getElementById('login-error').style.display = 'none';
+            }
+        });
+
+        document.querySelector('form[name="sign-up"]').addEventListener('submit', function(event) {
+            const username = document.getElementById('signup-username').value;
+            const password = document.getElementById('signup-password').value;
+            if (!username || !password) {
+                event.preventDefault();
+                document.getElementById('signup-error').style.display = 'block';
+            } else {
+                document.getElementById('signup-error').style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+</html>
