@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About BudgetBuddy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='about.css') }}">
+</head>
+<body>
+    <nav>
+        <img src="{{ url_for('static', filename='Week4Logo.png') }}" alt="Logo"/>
+        
+        <h1>Welcome to BudgetBuddy!</h1>
+        
+        <a href="{{ url_for('about') }}"><button>Login</button></a>
+    </nav>
+
+    <div class="container">
+        <h2>Why BudgetBuddy?</h2>
+        <p>Many students start earning their first income in college, but they often have less experience in managing finances. We are here to fix that!</p>
+        <p>BudgetBuddy provides a user-friendly platform for college students to manage their finances and access personalized financial advice. Having BudgetBuddy as their best friend, students can effectively control their money, gain peace of mind, and focus on their studies while enjoying college life.</p>
+        
+        <h2>What We Offer</h2>
+        <ul>
+            <li><strong>Personalized Accounts:</strong> Fill out a budget and a personality forms to help BudgetBuddy understand your financial needs better.</li>
+            <li><strong>Budget Tracking:</strong> Easily track and evaluate your income and expenses through the summary page we create for you to stay on top of your finances.</li>
+            <li><strong>Financial Advice:</strong> Our chatbot, Bud, provides tailored financial advice based on individual user inputs.</li>
+        </ul>
+
+        <h2>How to Get Started?</h2>
+        <p>It's very simple! Just follow these steps:</p>
+        <ol>
+            <li><strong>Register through the login page.</strong></li>
+
+            <li><strong>Fill out the budget form and the short personality test that will pop up.</strong>
+                <p>- The budget form will ask you 1 question about your income and 10 questions about your spending for BudgetBuddy to understand your financial needs.</p>
+                <ul>
+                    <li>Tip: For yearly expenses like textbooks, you can divide the total expense into twelve months and enter that amount.</li>
+                </ul>
+                <p>- The short personality form will ask you questions about your investment/budgeting style.</p>
+            </li>
+            <li><strong>Read through the summary.</strong>
+                <p>- After you fill out the forms, we will generate a summary of your current budget and what your ideal budget should look like according to your form responses.</p>
+            </li>
+            <li><strong> Chat with Bud!</strong>
+                <p>- Go to the Bud page and ask for financial advice from our financial advisor chatbot, Bud.</p>
+            </li> 
+            <li><strong>Experience the comfort and security that your BudgetBuddy brings to you!</strong> </li>
+        </ol>
+
+        
+        <h2>Meet the Team</h2>
+        <div class="team-container">
+            
+            <div class="team-member">
+                <h3>Aaron Kisitu</h3>
+                <p><strong>Email:</strong> kisituaaron@gmail.com </p>
+                <p><strong>College:</strong> University of Houston </p>
+                <p><strong>Role:</strong> Full-Stack Developer</p>
+            </div>
+            <div class="team-member">
+                <h3>Andre Barajas</h3>
+                <p><strong>Email:</strong> andrebarajas2000@gmail.com </p>
+                <p><strong>College:</strong> Duke University </p>
+                <p><strong>Role:</strong> Full-Stack Developer</p>
+            </div>
+            <div class="team-member">
+                <h3>Beste Kuruefe</h3>
+                <p><strong>Email:</strong> bestekuruefe@gmail.com</p>
+                <p><strong>College:</strong> Colby College </p>
+                <p><strong>Role:</strong> Full-Stack Developer</p>
+            </div>
+            <div class="team-member">
+                <h3>Hamid Ali</h3>
+                <p><strong>Email:</strong> abdulhamid2054@gmail.com </p>
+                <p><strong>College:</strong> University</p>
+                <p><strong>Role:</strong> Full-Stack Developer</p>
+            </div>
+            <div class="team-member center">
+                <h3>Yuneydy Paredes</h3>
+                <p><strong>Email:</strong> yp101@wellesley.edu </p>
+                <p><strong>College:</strong> Wellesley College </p>
+                <p><strong>Role:</strong> Full-Stack Developer</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
