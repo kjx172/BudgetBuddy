@@ -1,23 +1,12 @@
-'''
-Sets up the Flask application.
-Defines the /budget route to display the form and handle form submissions.
-Prints form data to the terminal upon successful submission.
-Redirects to the same page to clear the form and prevent resubmission issues.
-
-To run the code, copy and paste this:
-export SECRET_KEY=$(python3 -c 'import os; print(os.urandom(24))')
-export OPENAI_API_KEY='your-openai-key'
-python3 app.py
-'''
-
 import os
 import sqlite3
-from flask import Flask, render_template, redirect, url_for, request, jsonify, flash
+from flask import Flask, render_template, redirect, url_for, request, jsonify, flash, session
 from forms import BudgetForm
 from openai import OpenAI
 import git
 import string
 import secrets
+from functools import wraps
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -38,6 +27,13 @@ client = OpenAI(api_key=api_key)
 app = Flask(__name__)
 app.config['SECRET_KEY'] = generate_random_key()
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
 
 # Function to create the database table
 def create_table():
@@ -84,6 +80,22 @@ def get_last_row():
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == "POST":
+        username = request.form['username']
+        password = request.form['password']
+
+        if 'sign-up' in request.form:  # Check if sign-up form is submitted
+            # Replace with signup logic
+            flash('Account created successfully. Please log in.')
+            return redirect(url_for('login'))
+
+        # Replace with login logic to validate credentials
+        if username == "admin" and password == "password":  # Example check
+            session['user_id'] = 1  # Example user ID
+            return redirect(url_for('form'))
+        else:
+            flash('Invalid credentials. Please try again.')
+
     return render_template('login.html')
 
 @app.route('/about', methods=['GET', 'POST'])
@@ -91,15 +103,8 @@ def about():
     return render_template('about.html')
 
 @app.route('/form', methods=['GET', 'POST'])
-def form():
-    #this accepts the username and password from login page, change for functionality
-    if request.method == "POST":
-        username  = request.form['username']
-        password = request.form['password']
-
-        #if the username, password isnt alr stored send them back
-        #print(username, password)
-        
+@login_required
+def form():        
     form = BudgetForm()
     if form.validate_on_submit():
         income = float(form.income.data)
@@ -136,10 +141,12 @@ def form():
     return render_template('form.html', form=form)
 
 @app.route('/chatbot')
+@login_required
 def chatbot_site():
     return render_template('chatbot.html')
 
 @app.route('/chat', methods=['POST'])
+@login_required
 def chatbot():
     user_input = request.json.get('message')
 
@@ -192,6 +199,7 @@ def chatbot():
     return jsonify(response)
 
 @app.route('/summary')
+@login_required
 def summary():
     last_row = get_last_row()
     if last_row:

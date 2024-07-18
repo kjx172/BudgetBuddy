@@ -115,7 +115,14 @@ input[type=submit]:hover {
 
 .error {
     color: red;
-    font-size: small;
+    font-size: medium;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.created {
+    color: green;
+    font-size: medium;
     margin-top: 5px;
     text-align: center;
 }
