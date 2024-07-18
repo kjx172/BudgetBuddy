@@ -4,5 +4,8 @@
 #ignore pycache
 __pycache__/
 
+#ignore pycache
+.pyc
+
 #for mac users ignore folder configuration files
 .DS_Store
