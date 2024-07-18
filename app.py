@@ -13,6 +13,12 @@ python3 app.py
 import os
 import sqlite3
 from flask import Flask, render_template, redirect, url_for, request, jsonify, flash
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
+from flask_wtf import FlaskForm
+from flask_bcrypt import Bcrypt
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import InputRequired, Length, ValidationError
 from forms import BudgetForm
 from openai import OpenAI
 import git
@@ -37,7 +43,38 @@ client = OpenAI(api_key=api_key)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = generate_random_key()
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"
+db = SQLAlchemy(app)
+bcrypt = Bcrypt(app)
 
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), nullable=False, unique=True)
+    password = db.Column(db.String(80), nullable=False)
+
+class RegistrationForm(FlaskForm):
+    username = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
+    password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Password"})
+    submit = SubmitField("Register")
+
+    def validate_username(self, username):
+        existing_user_username = User.query.filter_by(username=username.data).first()
+        if existing_user_username:
+            raise ValidationError("That username already exists. Please choose a different one")
+
+class LoginForm(FlaskForm):
+    username = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
+    password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Password"})
+    submit = SubmitField("Login")
 
 # Function to create the database table
 def create_table():
@@ -134,6 +171,30 @@ def form():
         return redirect(url_for('summary'))
 
     return render_template('form.html', form=form)
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        new_user = User(username=form.username.data, password=hashed_password)
+        db.session.add(new_user)
+        db.session.commit()
+        flash('Your account has been created! You are now able to log in', 'success')
+        return redirect(url_for('login'))
+    return render_template('register.html', form=form)
+
+@app.route('/dashboard')
+@login_required
+def dashboard():
+    return render_template('dashboard.html')
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('login'))
 
 @app.route('/chatbot')
 def chatbot_site():
@@ -244,6 +305,14 @@ def webhook():
         return 'Updated PythonAnywhere successfully', 200
     else:
         return 'Wrong event type', 400
+
+@app.route('/')
+def index():
+    return 'Index'
+
+@app.route('/profile')
+def profile():
+    return 'Profile'
 
 if __name__ == '__main__':
     create_table()  # Create the database table if it doesn't exist
