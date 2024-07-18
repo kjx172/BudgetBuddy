@@ -81,8 +81,8 @@ def get_last_row():
     conn.close()
     return last_row
 
-@app.route('/home', methods=['GET', 'POST'])
-def home():
+@app.route('/', methods=['GET', 'POST'])
+def form():
     #this accepts the username and password from login page, change for functionality
     if request.method == "POST":
         username  = request.form['username']
@@ -90,7 +90,7 @@ def home():
 
         #if the username, password isnt alr stored send them back
         #print(username, password)
-    
+        
     form = BudgetForm()
     if form.validate_on_submit():
         income = float(form.income.data)
@@ -124,7 +124,7 @@ def home():
         # Redirect to the summary page
         return redirect(url_for('summary'))
 
-    return render_template('home.html', form=form)
+    return render_template('form.html', form=form)
 
 @app.route('/chatbot')
 def chatbot_site():

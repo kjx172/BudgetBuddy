@@ -1,27 +1,26 @@
-/* NAVIGATION BAR */ 
-body {
-    font-family: "Lato", sans-serif;
+html, body {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
 }
+
 header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    height: auto;
     padding: 20px 50px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    background-color: #18286d;
+    background-color: #0A2472;
+    color: #ffff; 
 }
 
-.logo {
-    margin-right: auto;
-}
-
-.logo img {
-    height: 50px; /* Adjust height as needed */
-    width: auto;
-}
-
-.nav-title {
-    margin-right: auto;
-    font-size: 1.5em;
+header h1 {
+    flex: 1;
+    align-items: center;
+    text-align: center;
 }
 
 header li {
@@ -30,81 +29,24 @@ header li {
     padding: 0 20px;
 }
 
+header img {
+    width: 150px;
+    height: auto;
+}
 header button {
     text-decoration: none;
-    color: #000000;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #0A2472;
+    background-color: #fff;
     font-size: 20px;
-    border-style: none;
+    border: none;
     border-radius: 10px;
     padding: 15px;
-    transition: all 0.3s ease 0s;
+    width: 150px;
+    height: 50px;
+    transition: all 0.3s ease;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
-
 header button:hover {
     background-color: #b2bddf;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-    color: #262e8a;
-}
-
-main {
-    margin-left: 50px;
-}
-form {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
-    font-family: Arial, sans-serif;
-}
-
-/* Style headings */
-h2, h3 {
-    color: #333;
-}
-
-/* Style input fields */
-input[type=text] {
-    width: calc(100% - 12px); 
-    padding: 6px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-/* Style submit button */
-#submit {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-input[type=submit]:hover {
-    background-color: #45a049;
-}
-
-/* Style error messages */
-.error {
-    color: red;
-    font-size: 0.9em;
-}
-
-/* Additional styling for sections */
-div {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-div h3 {
-    margin-top: 0;
-    font-size: 1.2em;
-    color: #333;
+    color: #fff;
 }
