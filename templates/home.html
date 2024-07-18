@@ -45,6 +45,63 @@
         <h2>Budget Form</h2>
         <form method="POST" action="{{ url_for('home') }}">
             {{ form.hidden_tag() }}
+
+            <h2>Financial Personality</h2>
+            <div>
+                {{ form.age.label }}<br>
+                {{ form.age(size=32) }}<br>
+                {% for error in form.age.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <div>
+                {{ form.financial_discipline.label }}<br>
+                {{ form.financial_discipline }}<br>
+                {% for error in form.financial_discipline.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <div>
+                {{ form.spending_habits.label }}<br>
+                {{ form.spending_habits }}<br>
+                {% for error in form.spending_habits.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <div>
+                {{ form.saving_importance.label }}<br>
+                {{ form.saving_importance }}<br>
+                {% for error in form.saving_importance.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            
+            <h2>Financial History</h2>
+            <h3>Short-Term Savings</h3>
+            <div>
+                {{ form.short_term_savings.label }}<br>
+                {{ form.short_term_savings(size=32) }}<br>
+                {% for error in form.short_term_savings.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <h3>Long-Term Savings</h3>
+            <div>
+                {{ form.long_term_savings.label }}<br>
+                {{ form.long_term_savings(size=32) }}<br>
+                {% for error in form.long_term_savings.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <h3>Investments</h3>
+            <div>
+                {{ form.investments.label }}<br>
+                {{ form.investments(size=32) }}<br>
+                {% for error in form.investments.errors %}
+                    <span class="error">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            
             <h2>Income</h2>
             <div>
                 {{ form.income.label }}<br>
@@ -53,6 +110,7 @@
                     <span class="error">[{{ error }}]</span>
                 {% endfor %}
             </div>
+
             <h2>Fixed Expenses</h2>
             <h3>Housing and Utilities</h3>
             <div>
@@ -94,6 +152,7 @@
                     <span class="error">[{{ error }}]</span>
                 {% endfor %}
             </div>
+
             <h2>Variable Expenses</h2>
             <h3>Food</h3>
             <div>
@@ -135,6 +194,8 @@
                     <span class="error">[{{ error }}]</span>
                 {% endfor %}
             </div>
+
+            
             <input id="submit" type="submit" value="Submit">
         </form>
     </main>
