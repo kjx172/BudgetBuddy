@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='summary.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="header">
@@ -102,9 +103,69 @@
             </table>
         </div>
     </div>
+
+    <div class="pie-chart-container">
+        <canvas id="spendingPieChart"></canvas>
+    </div>
+
     <div class="advice-box">
         <p><i><b>To receive more personalized recommendations from your financial advisor, Bud:</b></i></p>
         <p><a href="{{ url_for('chatbot_site') }}">Click Here</a></p>
     </div>
+
+    <script>
+        // Ensuring that the JSON data is safely embedded in JavaScript
+        const actualPercentages = JSON.parse('{{ actual_percentages|tojson|safe }}');
+        const idealPercentages = JSON.parse('{{ ideal_percentages|tojson|safe }}');
+        const unaccounted = 100 - actualPercentages['Needs'] - actualPercentages['Wants'] - actualPercentages['Savings or Debt Repayment'];
+    
+        const data = {
+            labels: ['Needs', 'Wants', 'Savings or Debt Repayment', 'Unaccounted for'],
+            datasets: [
+                {
+                    label: 'Actual Percentages',
+                    data: [actualPercentages['Needs'], actualPercentages['Wants'], actualPercentages['Savings or Debt Repayment'], unaccounted],
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#808080'],
+                    hoverOffset: 4
+                },
+                {
+                    label: 'Ideal Percentages',
+                    data: [idealPercentages['Needs'], idealPercentages['Wants'], idealPercentages['Savings or Debt Repayment']],
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                    hoverOffset: 4
+                }
+            ]
+        };
+    
+        const config = {
+            type: 'pie',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const datasetLabel = context.dataset.label || '';
+                                const label = context.label || '';
+                                const value = context.raw || 0;
+                                return `${datasetLabel} - ${label}: ${value}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+    
+        const spendingPieChart = new Chart(
+            document.getElementById('spendingPieChart'),
+            config
+        );
+    </script>
+    
+
 </body>
 {% endblock %}
