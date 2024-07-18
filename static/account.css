@@ -1,4 +1,4 @@
-body {
+html, body {
     font-family: 'Lato', sans-serif;
     margin: 0;
     padding: 0;
@@ -8,24 +8,16 @@ body {
 header {
     display: flex;
     align-items: center;
-    padding: 20px 50px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     background-color: #0A2472;
     color: #ffff; 
+    margin-bottom: 0;
 }
+
 header h1 {
     color: white;
 }
-.nav-title {
-    margin-right: auto;
-    font-size: 1.5em;
-    color: black;
-}
-header li {
-    list-style: none;
-    display: inline-block;
-    padding: 0 20px;
-}
+
 header button {
     text-decoration: none;
     color: #0A2472;
@@ -41,8 +33,26 @@ header button:hover {
     background-color: #b2bddf;
     color: #fff;
 }
+
+nav {
+    background: #133C55;
+    color: white;
+    width: 200px;
+    position: fixed;
+    top: 500;
+    left: 0;
+    padding-top: 1rem;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
 main {
     margin: 20px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 form {
     max-width: 600px;
@@ -51,12 +61,12 @@ form {
     border: 1px solid #ccc;
     background-color: #0E6BA8; 
     margin-left: 0; /* Align the form to the left */
+    text-align: left;
 }
 
 form h2, form h3 {
     color: #ffff;
 }
-
 
 input[type=text] {
     width: calc(100% - 24px); /* Adjusted to accommodate left and right padding */
@@ -68,16 +78,18 @@ input[type=text] {
 h1, h2, h3 {
     color: #0A2472;
 }
-#submit {
+input[type=submit] {
     background-color: #0A2472;
-    color: white;
+    color: #fff;
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: all 0.7s ease;
 }
 input[type=submit]:hover {
-    background-color: #084B7C;
+    background-color: #b2bddf;
+    color: #fff;
 }
 .error {
     color: red;

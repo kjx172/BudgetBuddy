@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='Account.css') }}">
 </head>
 
-<body>
-    
+<body>  
     <main>
-        <h2>Budget Form</h2>
+        <h1>Budget Form</h1>
+        <h4>please fill out or update your budget form</h4>
         <form method="POST" action="{{ url_for('account') }}">
             {{ form.hidden_tag() }}
             <h2>Income</h2>
@@ -111,4 +111,5 @@
         </form>
     </main>
 </body>
+
 {% endblock %}
