@@ -28,14 +28,23 @@ def generate_random_key(length=24):
 if not api_key:
     raise ValueError("No API key found. Please set the OPENAI_API_KEY environment variable.")
 
+#connects to the chatgpt api
 client = OpenAI(api_key=api_key)
 
 app = Flask(__name__)
+
+#configures the secret key to be random and connecting database.db to SQLalchamey
 app.config['SECRET_KEY'] = generate_random_key()
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"
+
+#creates a database for the app, checks if passwords match
 db = SQLAlchemy(app)
+with app.app_context():
+    db.create_all()
+    print("Database tables created.")
 bcrypt = Bcrypt(app)
 
+#makes pages login restricted
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -43,6 +52,7 @@ def login_required(f):
             return redirect(url_for('login'))
         return f(*args, **kwargs)
     return decorated_function
+
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -57,20 +67,10 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(20), nullable=False, unique=True)
     password = db.Column(db.String(80), nullable=False)
 
-class RegistrationForm(FlaskForm):
-    username = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
-    password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Password"})
-    submit = SubmitField("Register")
-
-    def validate_username(self, username):
-        existing_user_username = User.query.filter_by(username=username.data).first()
-        if existing_user_username:
-            raise ValidationError("That username already exists. Please choose a different one")
-
-class LoginForm(FlaskForm):
-    username = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
-    password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Password"})
-    submit = SubmitField("Login")
+def validate_username(username):
+    existing_user_username = User.query.filter_by(username=username).first()
+    if not existing_user_username:
+        return True
 
 # Function to create the database table
 def create_table():
@@ -120,18 +120,34 @@ def login():
     if request.method == "POST":
         username = request.form['username']
         password = request.form['password']
+        form_type = request.form.get('form_type')
 
-        if 'sign-up' in request.form:  # Check if sign-up form is submitted
-            # Replace with signup logic
+        if form_type == 'sign-up':  # Check if sign-up form is submitted
+            # hashes password and uses that + username to store user in db
+
+            #if username already exists
+            if not validate_username(username):
+                flash('Username is already in use.')
+                return redirect(url_for('login'))
+            
+            hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+            new_user = User(username=username, password=hashed_password)
+            db.session.add(new_user)
+            db.session.commit()
+
             flash('Account created successfully. Please log in.')
             return redirect(url_for('login'))
 
-        # Replace with login logic to validate credentials
-        if username == "admin" and password == "password":  # Example check
-            session['user_id'] = 1  # Example user ID
-            return redirect(url_for('form'))
-        else:
-            flash('Invalid credentials. Please try again.')
+        elif form_type == 'log-in':
+            # Retrieve the user from the database
+            user = User.query.filter_by(username=username).first()
+
+            #if the username is valid and the password entered matches the username's hashed password
+            if user and bcrypt.check_password_hash(user.password, password):
+                session['user_id'] = user.id
+                return redirect(url_for('form'))
+            else:
+                flash('Invalid credentials. Please try again.')
 
     return render_template('login.html')
 
@@ -176,23 +192,6 @@ def form():
         return redirect(url_for('summary'))
 
     return render_template('form.html', form=form)
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        new_user = User(username=form.username.data, password=hashed_password)
-        db.session.add(new_user)
-        db.session.commit()
-        flash('Your account has been created! You are now able to log in', 'success')
-        return redirect(url_for('login'))
-    return render_template('register.html', form=form)
-
-@app.route('/dashboard')
-@login_required
-def dashboard():
-    return render_template('dashboard.html')
 
 @app.route('/logout')
 @login_required
@@ -314,15 +313,7 @@ def webhook():
     else:
         return 'Wrong event type', 400
 
-@app.route('/')
-def index():
-    return 'Index'
-
-@app.route('/profile')
-def profile():
-    return 'Profile'
 
 if __name__ == '__main__':
     create_table()  # Create the database table if it doesn't exist
     app.run(debug=True)
-

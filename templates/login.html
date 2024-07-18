@@ -21,6 +21,7 @@
         <div class="log-in visible" id="log-in">
             <h3>Log in</h3>
             <form action="/login" method="POST" name = "log-in">
+                <input type="hidden" name="form_type" value="log-in">
                 <label for="login-username">Username:</label>
                 <input type="text" id="login-username" name="username">
                 <label for="login-password">Password:</label>
@@ -39,6 +40,7 @@
         <div class="sign-up" id="sign-up" style="display:none;">
             <h3>Sign up</h3>
             <form action="/login" method="POST" name="sign-up">
+                <input type="hidden" name="form_type" value="sign-up">
                 <label for="signup-username">Username:</label>
                 <input type="text" id="signup-username" name="username">
                 <label for="signup-password">Password:</label>
