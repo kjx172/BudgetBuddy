@@ -195,6 +195,7 @@ def summary():
     if last_row:
         income = float(last_row[8])
         expenses = last_row[9:19]
+        financial_history = last_row[5:8]
 
         needs = sum([float(expenses[0]), float(expenses[5]), float(expenses[2]), float(expenses[1]), float(expenses[3]), float(expenses[7])])
         wants = sum([float(expenses[6]), float(expenses[8])])
@@ -231,7 +232,7 @@ def summary():
         ideal_amounts = {'Needs': 0, 'Wants': 0, 'Savings or Debt Repayment': 0}
         ideal_percentages = {'Needs': 0, 'Wants': 0, 'Savings or Debt Repayment': 0}
 
-    return render_template('summary.html', income=income, expenses=expenses, actual_amounts=actual_amounts, actual_percentages=actual_percentages, ideal_amounts=ideal_amounts, ideal_percentages=ideal_percentages)
+    return render_template('summary.html', income=income, expenses=expenses, financial_history=financial_history, actual_amounts=actual_amounts, actual_percentages=actual_percentages, ideal_amounts=ideal_amounts, ideal_percentages=ideal_percentages)
 
 
 @app.route('/', methods=['GET', 'POST'])
