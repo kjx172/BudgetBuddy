@@ -71,7 +71,7 @@ def validate_username(username):
     existing_user_username = User.query.filter_by(username=username).first()
     if not existing_user_username:
         return True
-
+    
 # Function to create the database table
 def create_table():
     conn = sqlite3.connect('budgetbuddy.db')
