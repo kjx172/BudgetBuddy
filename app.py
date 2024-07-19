@@ -228,6 +228,7 @@ def chatbot():
         else:
             initial_message = "The user hasn't filled out the form yet."
 
+
         try:
             response = client.chat.completions.create(
                 model="gpt-4",
