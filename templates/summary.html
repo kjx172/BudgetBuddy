@@ -15,8 +15,36 @@
     <div class="header">
         <h2>A Summary of your Expenses</h2>
     </div>
+
+    <div class="container">
+        <h2 class="table-title">Your Financial History/Earnings</h2>
+        <table class="financial-history-table">
+            <tr>
+                <th class="category">Category</th>
+                <th>Amount</th>
+            </tr>
+            <tr>
+                <td>Short-Term Savings</td>
+                <td>{{ financial_history[0] }}</td>
+            </tr>
+            <tr>
+                <td>Long-Term Savings</td>
+                <td>{{ financial_history[1] }}</td>
+            </tr>
+            <tr>
+                <td>Investments</td>
+                <td>{{ financial_history[2] }}</td>
+            </tr>
+            <tr>
+                <td>Monthly Income</td>
+                <td>{{ income }}</td>
+            </tr>
+        </table>
+    </div>
+
     <div class="container">
         <div class="summary-header"></div>
+        <h2 class="table-title">Your Monthly Expenses</h2>
         <table class="expenses-table">
             <tr>
                 <th class="category">Category</th>
@@ -66,6 +94,7 @@
     </div>
     <div class="second-container">
         <div class="second-summary-header">
+            <h2 class="table-title">Your Spendings Comparison</h2>
             <table class="second-expenses-table">
                 <tr>
                     <th>Category</th>
