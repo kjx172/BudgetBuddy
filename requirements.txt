@@ -1,11 +1,11 @@
 Flask==3.0.3
-flask_bcrypt==1.0.1
-flask_login==0.6.3
+Flask_Bcrypt==1.0.1
+Flask_Login==0.6.3
 flask_sqlalchemy==3.1.1
 flask_wtf==1.2.1
 GitPython==3.1.43
 GitPython==3.1.43
-openai==1.35.15
+openai==1.36.0
 pip==24.1.2
 pytest==8.2.2
 python-dotenv==1.0.1
