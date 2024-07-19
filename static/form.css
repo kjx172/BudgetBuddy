@@ -1,21 +1,34 @@
-html, body {
+body {
     font-family: 'Lato', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
     color: #333;
 }
+
 header {
     display: flex;
     align-items: center;
+    padding: 20px 50px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     background-color: #0A2472;
-    color: #ffff; 
-    margin-bottom: 0;
+    color: #ffff;
 }
 
 header h1 {
     color: white;
+}
+
+.nav-title {
+    margin-right: auto;
+    font-size: 1.5em;
+    color: black;
+}
+
+header li {
+    list-style: none;
+    display: inline-block;
+    padding: 0 20px;
 }
 
 header button {
@@ -29,39 +42,24 @@ header button {
     transition: all 0.3s ease;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
+
 header button:hover {
     background-color: #b2bddf;
     color: #fff;
 }
 
-nav {
-    background: #133C55;
-    color: white;
-    width: 200px;
-    position: fixed;
-    top: 500;
-    left: 0;
-    padding-top: 1rem;
-    overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-}
 main {
     margin: 20px 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    text-align: center; /* Center the text in the main section */
 }
+
 form {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
-    background-color: #0E6BA8; 
-    margin-left: 0; /* Align the form to the left */
-    text-align: left;
+    background-color: #0E6BA8;
+    text-align: left; /* Keep the text in the form elements left-aligned */
 }
 
 form h2, form h3 {
@@ -75,26 +73,29 @@ input[type=text] {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+
 h1, h2, h3 {
     color: #0A2472;
 }
-input[type=submit] {
+
+#submit {
     background-color: #0A2472;
-    color: #fff;
+    color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: all 0.7s ease;
 }
+
 input[type=submit]:hover {
-    background-color: #b2bddf;
-    color: #fff;
+    background-color: #084B7C;
 }
+
 .error {
     color: red;
     font-size: 0.9em;
 }
+
 div {
     margin-top: 20px;
     padding: 10px;
@@ -102,8 +103,52 @@ div {
     border: 1px solid #ddd;
     border-radius: 4px;
 }
+
 div h3 {
     margin-top: 0;
     font-size: 1.2em;
     color: #333;
+}
+
+/* Tooltip container */
+.tooltip-custom {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+/* Tooltip text */
+.tooltip-custom .tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position above the icon */
+    left: 50%;
+    margin-left: -100px; /* Center the tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip-custom .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* Bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when hovering */
+.tooltip-custom:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
 }

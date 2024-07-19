@@ -9,6 +9,7 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
 from forms import BudgetForm
 from openai import OpenAI
+import openai
 import git
 import string
 import secrets
@@ -227,14 +228,33 @@ def chatbot():
         else:
             initial_message = "The user hasn't filled out the form yet."
 
-        prompt = initial_message + "The user says: " + user_input + " How do you respond?"
 
-        response = client.Completion.create(
-            model="text-davinci-003",
-            prompt=prompt,
-            max_tokens=150,
-        )
-        response = {"message": response.choices[0].text.strip()}
+        try:
+            response = client.chat.completions.create(
+                model="gpt-4",
+                messages=[
+                    {"role": "system", "content": "Your name is Bud. You are a financial planner tasked with helping the user make smarter financial decisions."},
+                    {"role": "system", "content": "Introduce yourself only on the first message."},
+                    {"role": "system", "content": "Limit your responses to 500 characters"}, 
+                    {"role": "system", "content": "Be friendly and make sure your responses are clear and simple. Someone with no financial knowledge should understand."},
+                    {"role": "system", "content": "Offer practical tips and examples whenever possible."},
+                    {"role": "system", "content": initial_message},
+                    {"role": "system", "content": "Your audience is college students. Tailor your responses to the finances and situations of the typical American college student."},
+                    {"role": "system", "content": "If you don't have the user's budget information, direct them to fill out the form in the form page first."},
+                    {"role": "system", "content": "Remember that housing and utilities, communication, transportation, education, food, and health and personal care expenses are the user's needs. Entertainment and clothing expenses are the user's wants. Debt payment and saving expenses are the user's savings/debt repayments."},
+                    {"role": "system", "content": "If the user asks about budgeting, tell them about the 50/30/20 budget rule."},
+                    {"role": "system", "content": "Ideally, the user should allocate 50%% of their income to their needs, 30%% to their wants, and 20%% to their savings and debt repayments."},
+                    {"role": "system", "content": "When responding to the user, consider the user's age, short and long term savings, investments, income, and expense information."},
+                    {"role": "system", "content": "If the user asks advice about something they want to buy, pay attention to the user's short and long term savings in addition to their expenses and income."},
+                    {"role": "user", "content": user_input}
+                ]
+            )
+       
+            message = response.choices[0].message.content.strip()
+            response = {"message": message}
+        except Exception as e:
+            print(f"Error: {str(e)}")
+            response = {"message": "Something went wrong"}
 
     return jsonify(response)
 

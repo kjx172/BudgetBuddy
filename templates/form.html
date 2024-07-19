@@ -16,15 +16,17 @@
 <body>  
     <main>
         <h1>Budget Form</h1>
-        <h4>please fill out or update your budget form</h4>
+        <h4>Please fill out or update your budget form.</h4>
         <form method="POST" action="{{ url_for('form') }}">
             {{ form.hidden_tag() }}
             
             <h2>Financial Personality</h2>
             <div>
+                <h3>Age</h3>
                 {{ form.age.label }}
-                <span data-toggle="tooltip" title="Please enter your age in years.">
+                <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-text">Please enter your age in years.</span>
                 </span><br>
                 {{ form.age(size=32) }}<br>
                 {% for error in form.age.errors %}
@@ -32,9 +34,11 @@
                 {% endfor %}
             </div>
             <div>
+                <h3>Financial Discipline</h3>
                 {{ form.financial_discipline.label }}
-                <span data-toggle="tooltip" title="How often do you adhere to your budget?">
+                <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-text">How often do you adhere to your budget?</span>
                 </span><br>
                 {{ form.financial_discipline }}<br>
                 {% for error in form.financial_discipline.errors %}
@@ -42,9 +46,11 @@
                 {% endfor %}
             </div>
             <div>
+                <h3>Spending Habits</h3>
                 {{ form.spending_habits.label }}
-                <span data-toggle="tooltip" title="Describe your general spending habits.">
+                <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-text">Describe your general spending habits.</span>
                 </span><br>
                 {{ form.spending_habits }}<br>
                 {% for error in form.spending_habits.errors %}
@@ -52,9 +58,11 @@
                 {% endfor %}
             </div>
             <div>
+                <h3>Saving Importance</h3>
                 {{ form.saving_importance.label }}
-                <span data-toggle="tooltip" title="How important is it for you to save a portion of your income regularly?">
+                <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-text">How important is it for you to save a portion of your income regularly?</span>
                 </span><br>
                 {{ form.saving_importance }}<br>
                 {% for error in form.saving_importance.errors %}
@@ -64,9 +72,11 @@
             
             <h2>Financial History</h2>
             <div>
+                <h3>Short-Term Savings</h3>
                 {{ form.short_term_savings.label }}
-                <span data-toggle="tooltip" title="Money saved for expenses within the next year (e.g., groceries, textbooks, or travel).">
+                <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-text">Some examples for short-term expenses can be groceries, textbooks, or travel.</span>
                 </span><br>
                 {{ form.short_term_savings(size=32) }}<br>
                 {% for error in form.short_term_savings.errors %}
@@ -74,9 +84,11 @@
                 {% endfor %}
             </div>
             <div>
+                <h3>Long-Term Savings</h3>
                 {{ form.long_term_savings.label }}
-                <span data-toggle="tooltip" title="Money saved for goals more than a year away (e.g., savings for post-graduation plans, a car, or future investments).">
+                <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-text">Some examples for long-term goals can be savings for post-graduation plans, a car, or future investments.</span>
                 </span><br>
                 {{ form.long_term_savings(size=32) }}<br>
                 {% for error in form.long_term_savings.errors %}
@@ -84,9 +96,11 @@
                 {% endfor %}
             </div>
             <div>
+                <h3>Investments</h3>
                 {{ form.investments.label }}
-                <span data-toggle="tooltip" title="Money currently invested in stocks, bonds, or mutual funds.">
+                <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-text">Money currently invested in stocks, bonds, or mutual funds.</span>
                 </span><br>
                 {{ form.investments(size=32) }}<br>
                 {% for error in form.investments.errors %}
@@ -96,9 +110,11 @@
 
             <h2>Income</h2>
             <div>
+                <h3>Monthly Income</h3>
                 {{ form.income.label }}
-                <span data-toggle="tooltip" title="Your total monthly income.">
+                <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-text">Your total monthly income.</span>
                 </span><br>
                 {{ form.income(size=32) }}<br>
                 {% for error in form.income.errors %}
@@ -108,9 +124,11 @@
 
             <h2>Fixed Expenses</h2>
             <div>
+                <h3>Housing and Utilities</h3>
                 {{ form.housing_utilities.label }}
-                <span data-toggle="tooltip" title="Monthly expenses for rent or dorm fees, and utilities (electricity, gas, water).">
+                <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-text">Utilities can be described as electricity, gas, and water fees.</span>
                 </span><br>
                 {{ form.housing_utilities(size=32) }}<br>
                 {% for error in form.housing_utilities.errors %}
@@ -118,9 +136,11 @@
                 {% endfor %}
             </div>
             <div>
+                <h3>Communication</h3>
                 {{ form.communication.label }}
-                <span data-toggle="tooltip" title="Monthly expenses for cell phone and internet services.">
+                <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-text">Monthly expenses for cell phone and internet services.</span>
                 </span><br>
                 {{ form.communication(size=32) }}<br>
                 {% for error in form.communication.errors %}
@@ -128,9 +148,11 @@
                 {% endfor %}
             </div>
             <div>
+                <h3>Transportation</h3>
                 {{ form.transportation.label }}
-                <span data-toggle="tooltip" title="Monthly costs for transportation, including car-related expenses (insurance, maintenance, repairs, parking fees, loan payments) and public transportation.">
+                <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-text">Car-related expenses can be described as insurance, maintenance, repairs, parking fees, loan payments.</span>
                 </span><br>
                 {{ form.transportation(size=32) }}<br>
                 {% for error in form.transportation.errors %}
@@ -138,9 +160,11 @@
                 {% endfor %}
             </div>
             <div>
+                <h3>Education</h3>
                 {{ form.education.label }}
-                <span data-toggle="tooltip" title="Monthly cost for books and educational materials.">
+                <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-text">If you have yearly education costs, not monthly costs, you can divide the total expense into twelve months and enter that amount.</span>
                 </span><br>
                 {{ form.education(size=32) }}<br>
                 {% for error in form.education.errors %}
@@ -148,9 +172,11 @@
                 {% endfor %}
             </div>
             <div>
+                <h3>Savings</h3>
                 {{ form.savings.label }}
-                <span data-toggle="tooltip" title="Amount set aside for savings each month.">
+                <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-text">Amount set aside for savings each month.</span>
                 </span><br>
                 {{ form.savings(size=32) }}<br>
                 {% for error in form.savings.errors %}
@@ -160,9 +186,11 @@
 
             <h2>Variable Expenses</h2>
             <div>
+                <h3>Food</h3>
                 {{ form.food.label }}
-                <span data-toggle="tooltip" title="Monthly expenses for groceries or a meal plan.">
+                <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-text">Monthly expenses for groceries or a meal plan.</span>
                 </span><br>
                 {{ form.food(size=32) }}<br>
                 {% for error in form.food.errors %}
@@ -170,9 +198,11 @@
                 {% endfor %}
             </div>
             <div>
+                <h3>Entertainment</h3>
                 {{ form.entertainment.label }}
-                <span data-toggle="tooltip" title="Monthly expenses for entertainment, including dining out, concerts, music downloads, and movies.">
+                <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-text">Entertainment expenses include dining out, concerts, music downloads, and movies.</span>
                 </span><br>
                 {{ form.entertainment(size=32) }}<br>
                 {% for error in form.entertainment.errors %}
@@ -180,9 +210,11 @@
                 {% endfor %}
             </div>
             <div>
+                <h3>Health and Personal Care</h3>
                 {{ form.health_personal_care.label }}
-                <span data-toggle="tooltip" title="Monthly cost for medical expenses, prescriptions, laundry/dry cleaning, and personal care expenses.">
+                <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-text">Monthly cost for medical expenses, prescriptions, laundry/dry cleaning, and personal care expenses.</span>
                 </span><br>
                 {{ form.health_personal_care(size=32) }}<br>
                 {% for error in form.health_personal_care.errors %}
@@ -190,9 +222,11 @@
                 {% endfor %}
             </div>
             <div>
+                <h3>Clothing</h3>
                 {{ form.clothing_laundry.label }}
-                <span data-toggle="tooltip" title="Monthly expenses for clothing.">
+                <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-text">Monthly expenses for clothing.</span>
                 </span><br>
                 {{ form.clothing_laundry(size=32) }}<br>
                 {% for error in form.clothing_laundry.errors %}
@@ -200,9 +234,11 @@
                 {% endfor %}
             </div>
             <div>
+                <h3>Debt Repayments</h3>
                 {{ form.debt_payments.label }}
-                <span data-toggle="tooltip" title="Monthly payment for debt (credit cards, loans, etc.).">
+                <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
+                    <span class="tooltip-text">Some examples for debt can be given as credit cards debt and loans.</span>
                 </span><br>
                 {{ form.debt_payments(size=32) }}<br>
                 {% for error in form.debt_payments.errors %}
@@ -213,15 +249,5 @@
             <input id="submit" type="submit" value="Submit">
         </form>
     </main>
-
-    <!-- Bootstrap JS and dependencies for tooltips only -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-    </script>
 </body>
 {% endblock %}
