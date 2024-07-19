@@ -33,11 +33,15 @@
                     one lowercase letter, one digit, and one special character (! ? # *).</p>
                 <input type="submit" value="Submit">
                 <p class="error" id="login-error" style="display: none;">Please enter a username and password.</p>
-                {% for message in get_flashed_messages() %}
-                <div class="error">
-                    {{ message }}
-                </div>
-                {% endfor %}
+                {% with messages = get_flashed_messages(with_categories=True) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                        <div class="{{ category }}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
             </form>
             <p><a href="#" id="show-sign-up">Don't have an account? Sign up</a></p>
         </div>

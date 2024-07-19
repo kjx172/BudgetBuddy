@@ -99,7 +99,7 @@ def login():
         if form_type == 'sign-up':  # Check if sign-up form is submitted
             #if username already exists
             if not validate_username(username):
-                flash('Username is already in use.')
+                flash('Username is already in use.', 'error')
                 return redirect(url_for('login'))
             
             # hashes password and uses that + username to store user in db
@@ -108,7 +108,7 @@ def login():
             db.session.add(new_user)
             db.session.commit()
 
-            flash('Account created successfully. Please log in.')
+            flash('Account created successfully. Please log in.', 'info')
             return redirect(url_for('login'))
 
         elif form_type == 'log-in':
@@ -122,7 +122,7 @@ def login():
                 print(f"Logged in user ID: {current_user.id}")
                 return redirect(url_for('form'))
             else:
-                flash('Invalid credentials. Please try again.')
+                flash('Invalid credentials. Please try again.', 'error')
 
     return render_template('login.html')
 
