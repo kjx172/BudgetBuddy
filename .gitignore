@@ -9,3 +9,6 @@ __pycache__/
 
 #for mac users ignore folder configuration files
 .DS_Store
+
+#ignores the database is used for testing
+instance/database.db

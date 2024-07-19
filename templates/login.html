@@ -20,22 +20,27 @@
     <main>
         <div class="log-in visible" id="log-in">
             <h3>Log in</h3>
-            <!---change the /home to wherever the form username/password is being sent-->
-            <form action="/form" method="POST" name = "log-in">
+            <form action="/login" method="POST" name = "log-in">
+                <input type="hidden" name="form_type" value="log-in">
                 <label for="login-username">Username:</label>
                 <input type="text" id="login-username" name="username">
                 <label for="login-password">Password:</label>
                 <input type="password" id="login-password" name="password">
                 <input type="submit" value="Submit">
                 <p class="error" id="login-error" style="display: none;">Please enter a username and password.</p>
+                {% for message in get_flashed_messages() %}
+                <div class="error">
+                    {{ message }}
+                </div>
+                {% endfor %}
             </form>
             <p><a href="#" id="show-sign-up">Don't have an account? Sign up</a></p>
         </div>
 
         <div class="sign-up" id="sign-up" style="display:none;">
             <h3>Sign up</h3>
-            <!---change the /home to wherever the form username/password is being sent-->
-            <form action="/form" method="POST" name="sign-up">
+            <form action="/login" method="POST" name="sign-up">
+                <input type="hidden" name="form_type" value="sign-up">
                 <label for="signup-username">Username:</label>
                 <input type="text" id="signup-username" name="username">
                 <label for="signup-password">Password:</label>

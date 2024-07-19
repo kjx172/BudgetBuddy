@@ -24,9 +24,36 @@ body {
     color: white; /* Explicitly set the text color to white */
 }
 
+		
+.table-title {
+    text-align: center;
+    font-size: 24px; /* Set the desired font size for all table titles */
+    margin-bottom: 20px;
+}
+
 .container, .second-container {
     width: 70%;
     margin: 50px auto;
+}
+
+.financial-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+}
+.financial-history-table th, .financial-history-table td {
+    border: 2px solid #00072D;
+    padding: 15px;
+    background-color: #f2f2f2;
+}
+.financial-history-table th {
+    text-align: center;
+}
+.financial-history-table td {
+    text-align: left;
+}
+.financial-history-table tr:first-child th {
+    background-color: #A6E1FA;
 }
 
 .summary-header, .second-summary-header {
