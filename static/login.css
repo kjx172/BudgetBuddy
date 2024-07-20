@@ -126,3 +126,52 @@ input[type=submit]:hover {
     margin-top: 5px;
     text-align: center;
 }
+
+.password-info .username-info {
+    margin-bottom: 5px;
+}
+
+/* Tooltip container */
+.tooltip-custom {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    margin-bottom: 6px;
+}
+
+/* Tooltip text */
+.tooltip-custom .tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position above the icon */
+    left: 50%;
+    margin-left: -100px; /* Center the tooltip */
+    opacity: 0;
+    transition: all 0.45s ease;
+}
+
+/* Tooltip arrow */
+.tooltip-custom .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* Bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when hovering */
+.tooltip-custom:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+

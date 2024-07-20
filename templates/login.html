@@ -7,6 +7,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <!-- Font Awesome for info icon -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <title>Login and Sign Up</title>
 </head>
 
@@ -23,14 +25,9 @@
             <form action="/login" method="POST" name = "log-in">
                 <input type="hidden" name="form_type" value="log-in">
                 <label for="login-username">Username:</label>
-                <input type="text" id="login-username" name="username", minlength="5", maxlength="25" 
-                pattern="[A-Za-z0-9]+" required>
-                <p class="helper-text">Username must be 5-25 characters long and contain only letters and numbers.</p>
+                <input type="text" id="login-username" name="username" required>
                 <label for="login-password">Password:</label>
-                <input type="password" id="login-password" name="password" minlength="5" maxlength="25" 
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!?#*]).{8,25}" required>
-                <p class="helper-text">Password must be 8-25 characters long and contain at least one uppercase letter, 
-                    one lowercase letter, one digit, and one special character (! ? # *).</p>
+                <input type="password" id="login-password" name="password" required>
                 <input type="submit" value="Submit">
                 <p class="error" id="login-error" style="display: none;">Please enter a username and password.</p>
                 {% with messages = get_flashed_messages(with_categories=True) %}
@@ -50,15 +47,25 @@
             <h3>Sign up</h3>
             <form action="/login" method="POST" name="sign-up">
                 <input type="hidden" name="form_type" value="sign-up">
-                <label for="signup-username">Username:</label>
+                <div class="username-info">
+                    <label for="signup-username">Username:</label>
+                    <span class="tooltip-custom">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Username must be 5-25 characters long and contain only letters and numbers.</span>
+                    </span>
+                </div>
                 <input type="text" id="signup-username" name="username" minlength="5", maxlength="25" 
                 pattern="[A-Za-z0-9]+" required>
-                <p class="helper-text">Username must be 5-25 characters long and contain only letters and numbers.</p>
-                <label for="signup-password">Password:</label>
+                <div class="password-info">
+                    <label for="signup-password">Password:</label>
+                    <span class="tooltip-custom">
+                        <i class="fas fa-info-circle"></i>
+                        <span class="tooltip-text">Password must be 8-25 characters long and contain at least one uppercase letter, 
+                            one lowercase letter, one digit, and one special character (! ? # *).</span>
+                    </span>
+                </div>
                 <input type="password" id="signup-password" name="password" minlength="5" maxlength="25" 
                 pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!?#*]).{8,25}" required>
-                <p class="helper-text">Password must be 8-25 characters long and contain at least one uppercase letter, 
-                    one lowercase letter, one digit, and one special character (! ? # *).</p>
                 <input type="submit" value="Submit">
                 <p class="error" id="signup-error" style="display: none;">Please enter a username and password.</p>
             </form>
