@@ -38,7 +38,7 @@
                 {{ form.financial_discipline.label }}
                 <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
-                    <span class="tooltip-text">How often do you adhere to your budget?</span>
+                    <span class="tooltip-text">Do you have a budget? If so how consistent are you with it?</span>
                 </span><br>
                 {{ form.financial_discipline }}<br>
                 {% for error in form.financial_discipline.errors %}
@@ -50,7 +50,7 @@
                 {{ form.spending_habits.label }}
                 <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
-                    <span class="tooltip-text">Describe your general spending habits.</span>
+                    <span class="tooltip-text">Which of the following most closely matches your average spending behavior</span>
                 </span><br>
                 {{ form.spending_habits }}<br>
                 {% for error in form.spending_habits.errors %}
@@ -62,7 +62,7 @@
                 {{ form.saving_importance.label }}
                 <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
-                    <span class="tooltip-text">How important is it for you to save a portion of your income regularly?</span>
+                    <span class="tooltip-text">How high of a priority do you give setting aside money for savings</span>
                 </span><br>
                 {{ form.saving_importance }}<br>
                 {% for error in form.saving_importance.errors %}
@@ -76,7 +76,7 @@
                 {{ form.short_term_savings.label }}
                 <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
-                    <span class="tooltip-text">Some examples for short-term expenses can be groceries, textbooks, or travel.</span>
+                    <span class="tooltip-text">Examples of short-term expenses include travel, credit card payments, and personal goods such as a TV.</span>
                 </span><br>
                 {{ form.short_term_savings(size=32) }}<br>
                 {% for error in form.short_term_savings.errors %}
@@ -88,7 +88,7 @@
                 {{ form.long_term_savings.label }}
                 <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
-                    <span class="tooltip-text">Some examples for long-term goals can be savings for post-graduation plans, a car, or future investments.</span>
+                    <span class="tooltip-text">Examples of long-term goals include savings for post-graduation plans, large purchases such as a car, or a retirement fund.</span>
                 </span><br>
                 {{ form.long_term_savings(size=32) }}<br>
                 {% for error in form.long_term_savings.errors %}
@@ -100,7 +100,7 @@
                 {{ form.investments.label }}
                 <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
-                    <span class="tooltip-text">Money currently invested in stocks, bonds, or mutual funds.</span>
+                    <span class="tooltip-text">Examples of investments include stocks, bonds, index/mutual funds, or any other asset that may increase in value.</span>
                 </span><br>
                 {{ form.investments(size=32) }}<br>
                 {% for error in form.investments.errors %}
@@ -114,7 +114,7 @@
                 {{ form.income.label }}
                 <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
-                    <span class="tooltip-text">Your total monthly income.</span>
+                    <span class="tooltip-text">The total amount of money you earn per month from sources such as employment, dividends, or buisness profits</span>
                 </span><br>
                 {{ form.income(size=32) }}<br>
                 {% for error in form.income.errors %}
@@ -128,7 +128,7 @@
                 {{ form.housing_utilities.label }}
                 <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
-                    <span class="tooltip-text">Utilities can be described as electricity, gas, and water fees.</span>
+                    <span class="tooltip-text">Some examples of common utilities are electricity, gas, and water; however utilites can include any household service you pay for on a monthly basis such as trash collection</span>
                 </span><br>
                 {{ form.housing_utilities(size=32) }}<br>
                 {% for error in form.housing_utilities.errors %}
@@ -140,7 +140,7 @@
                 {{ form.communication.label }}
                 <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
-                    <span class="tooltip-text">Monthly expenses for cell phone and internet services.</span>
+                    <span class="tooltip-text">This includes costs such as long distance and international calls</span>
                 </span><br>
                 {{ form.communication(size=32) }}<br>
                 {% for error in form.communication.errors %}
@@ -152,7 +152,7 @@
                 {{ form.transportation.label }}
                 <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
-                    <span class="tooltip-text">Car-related expenses can be described as insurance, maintenance, repairs, parking fees, loan payments.</span>
+                    <span class="tooltip-text">Include expenses such as insurance, gas, parking passes, train tickets, and metro cards.</span>
                 </span><br>
                 {{ form.transportation(size=32) }}<br>
                 {% for error in form.transportation.errors %}
@@ -164,7 +164,7 @@
                 {{ form.education.label }}
                 <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
-                    <span class="tooltip-text">If you have yearly education costs, not monthly costs, you can divide the total expense into twelve months and enter that amount.</span>
+                    <span class="tooltip-text">If you have yearly/semestarly education costs divide the total expense into a monthly cost</span>
                 </span><br>
                 {{ form.education(size=32) }}<br>
                 {% for error in form.education.errors %}
@@ -176,7 +176,7 @@
                 {{ form.savings.label }}
                 <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
-                    <span class="tooltip-text">Amount set aside for savings each month.</span>
+                    <span class="tooltip-text">How much money do you place into your savings account(s) each month</span>
                 </span><br>
                 {{ form.savings(size=32) }}<br>
                 {% for error in form.savings.errors %}
@@ -190,7 +190,7 @@
                 {{ form.food.label }}
                 <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
-                    <span class="tooltip-text">Monthly expenses for groceries or a meal plan.</span>
+                    <span class="tooltip-text">If your meal plan is charged per semester/year divide it into the monthly price</span>
                 </span><br>
                 {{ form.food(size=32) }}<br>
                 {% for error in form.food.errors %}
@@ -202,7 +202,7 @@
                 {{ form.entertainment.label }}
                 <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
-                    <span class="tooltip-text">Entertainment expenses include dining out, concerts, music downloads, and movies.</span>
+                    <span class="tooltip-text">Includes expenses such as dining out, concerts, and movies.</span>
                 </span><br>
                 {{ form.entertainment(size=32) }}<br>
                 {% for error in form.entertainment.errors %}
@@ -214,7 +214,7 @@
                 {{ form.health_personal_care.label }}
                 <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
-                    <span class="tooltip-text">Monthly cost for medical expenses, prescriptions, laundry/dry cleaning, and personal care expenses.</span>
+                    <span class="tooltip-text">Includes expenses suhch as hair styling, gym memberships, and doctors visits</span>
                 </span><br>
                 {{ form.health_personal_care(size=32) }}<br>
                 {% for error in form.health_personal_care.errors %}
@@ -238,7 +238,7 @@
                 {{ form.debt_payments.label }}
                 <span class="tooltip-custom">
                     <i class="fas fa-info-circle"></i>
-                    <span class="tooltip-text">Some examples for debt can be given as credit cards debt and loans.</span>
+                    <span class="tooltip-text">Includes expenses such as credit card debt and student loans</span>
                 </span><br>
                 {{ form.debt_payments(size=32) }}<br>
                 {% for error in form.debt_payments.errors %}

@@ -14,7 +14,7 @@ class BudgetForm(FlaskForm):
     saving_importance = RadioField('How important is it for you to save a portion of your income regularly?', choices=[('Very important', 'Very important'), ('Somewhat important', 'Somewhat important'), ('Not important', 'Not important')], validators=[InputRequired()])
 
     # Financial History
-    short_term_savings = DecimalField("How much money do you have saved for expenses you'll face within the next year?", validators=[InputRequired(), NumberRange(min=0)])
+    short_term_savings = DecimalField("How much money do you have saved for expenses you'll face within the year?", validators=[InputRequired(), NumberRange(min=0)])
     long_term_savings = DecimalField("How much money do you have saved for goals more than a year away?", validators=[InputRequired(), NumberRange(min=0)])
     investments = DecimalField("How much money do you currently have invested?", validators=[InputRequired(), NumberRange(min=0)])
 
@@ -22,10 +22,10 @@ class BudgetForm(FlaskForm):
     income = DecimalField('What is your monthly income?', validators=[InputRequired(), NumberRange(min=0)])
     
     # Fixed Expenses
-    housing_utilities = DecimalField('How much do you spend on rent or dorm fees, and utilities per month?', validators=[InputRequired(), NumberRange(min=0)])
+    housing_utilities = DecimalField('How much do you spend on rent/dorm fees and utilities per month?', validators=[InputRequired(), NumberRange(min=0)])
     communication = DecimalField('How much is your monthly expense for cell phone and internet services?', validators=[InputRequired(), NumberRange(min=0)])
     transportation = DecimalField('What is your total monthly cost for transportation, including car-related expenses and public transportation?', validators=[InputRequired(), NumberRange(min=0)])
-    education = DecimalField('What is your monthly cost for books and educational materials?', validators=[InputRequired(), NumberRange(min=0)])
+    education = DecimalField('What is your monthly cost for tuition and educational materials?', validators=[InputRequired(), NumberRange(min=0)])
     savings = DecimalField('How much money do you set aside for savings each month?', validators=[InputRequired(), NumberRange(min=0)])
     
     # Variable Expenses
