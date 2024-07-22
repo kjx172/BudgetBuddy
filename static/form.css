@@ -1,5 +1,5 @@
 body {
-    font-family: 'Lato', sans-serif;
+    font-family: "Poppins", sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
@@ -11,7 +11,7 @@ header {
     align-items: center;
     padding: 20px 50px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    background-color: #0A2472;
+    background-color: #21305a;
     color: #ffff;
 }
 
@@ -33,18 +33,18 @@ header li {
 
 header button {
     text-decoration: none;
-    color: #0A2472;
+    color: #21305a;
     background-color: #fff;
     font-size: 20px;
     border: none;
     border-radius: 10px;
-    padding: 15px;
+    padding: 10px 20px;
     transition: all 0.3s ease;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
 header button:hover {
-    background-color: #b2bddf;
+    background-color: #caa56f;
     color: #fff;
 }
 
@@ -58,7 +58,7 @@ form {
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
-    background-color: #0E6BA8;
+    background-color: #185e8d;
     text-align: left; /* Keep the text in the form elements left-aligned */
 }
 

@@ -1,5 +1,5 @@
 html, body {
-    font-family: 'Lato', sans-serif;
+    font-family: "Poppins", sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
@@ -13,7 +13,7 @@ nav {
     align-items: center;
     padding: 20px 50px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    background-color: #0A2472;
+    background-color: #21305a;
     color: #ffff; 
 }
 
@@ -27,10 +27,12 @@ nav img {
     height: auto;
 }
 nav button {
+    font-family: "Poppins", sans-serif;
     text-decoration: none;
-    color: #0A2472;
+    color: #354060;
     background-color: #fff;
     font-size: 20px;
+    font-weight: 500;
     border: none;
     border-radius: 10px;
     padding: 15px;
@@ -38,8 +40,9 @@ nav button {
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 nav button:hover {
-    background-color: #b2bddf;
+    background-color: #caa56f;
     color: #fff;
+    cursor: pointer;
 }
 
 main {
@@ -63,8 +66,12 @@ main {
 
 div h3 {
     margin-top: 0;
-    font-size: 1.2em;
-    color: #333;
+    font-size: 1.7em;
+    color: #134e76;
+    border: #caa56f;
+    border-bottom-style: solid;
+    padding: 10px 150px;
+    text-transform: capitalize;
 }
 
 form {
@@ -73,8 +80,10 @@ form {
     padding: 20px;
     height: 300px;
     width: 500px;
-    border: 1px solid #ccc;
-    background-color: #0E6BA8; 
+    border: none;
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    background-color: #185e8d; 
     text-align: left;
     display: flex;
     flex-direction: column;
@@ -83,8 +92,9 @@ form {
 
 label {
     margin-bottom: 5px;
-    font-size: x-large;
-    color: black;
+    font-size: 1.2rem;
+    color: rgb(244, 238, 238);
+    font-weight: bold;
 }
 
 input[type="text"],
@@ -98,26 +108,35 @@ input[type="password"] {
 
 
 input[type="submit"] {
-    color: #0A2472;
-    background-color: #fff;
+    color: #ffffff;
+    background-color: #caa56f;
     padding: 10px 20px;
-    width: calc(100% - 24px);
+    width: 150px;
     border: none;
     cursor: pointer;
     transition: all 0.45s ease;
     margin-top: 0px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    margin-left: 170px;
 }
 
 input[type=submit]:hover {
-    background-color: #0A2472;
-    color: #fff;
+    background-color: #fff;
+    color: #caa56f;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
 .error {
-    color: #f19457;
+    color: #caa56f;
     font-size: medium;
-    margin-top: 5px;
+    margin-top: 10px;
     text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
 }
 
 .info {
@@ -137,17 +156,20 @@ input[type=submit]:hover {
     display: inline-block;
     cursor: pointer;
     margin-bottom: 6px;
+    color: #fff;
 }
 
 /* Tooltip text */
 .tooltip-custom .tooltip-text {
     visibility: hidden;
     width: 200px;
-    background-color: #555;
+    background-color: #caa56f;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     color: #fff;
+    font-size: 0.8rem;
     text-align: center;
     border-radius: 5px;
-    padding: 5px 0;
+    padding: 5px;
     position: absolute;
     z-index: 1;
     bottom: 125%; /* Position above the icon */

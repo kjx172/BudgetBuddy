@@ -1,5 +1,5 @@
 html, body {
-    font-family: 'Lato', sans-serif;
+    font-family: "Poppins", sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
@@ -13,7 +13,7 @@ header {
     height: auto;
     padding: 20px 50px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    background-color: #0A2472;
+    background-color: #21305a;
     color: #ffff; 
 }
 
@@ -27,6 +27,7 @@ header li {
     list-style: none;
     display: inline-block;
     padding: 0 20px;
+    font-family: "Poppins", sans-serif;
 }
 
 header img {
@@ -35,18 +36,19 @@ header img {
 }
 header button {
     text-decoration: none;
-    color: #0A2472;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color: #21305a;
     background-color: #fff;
     font-size: 20px;
     border: none;
     border-radius: 10px;
-    padding: 15px;
-    width: 150px;
-    height: 50px;
+    padding: 10px 20px;
     transition: all 0.3s ease;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 header button:hover {
-    background-color: #b2bddf;
+    background-color: #caa56f;
     color: #fff;
+    cursor: pointer;
 }
