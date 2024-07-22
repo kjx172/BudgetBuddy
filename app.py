@@ -130,29 +130,15 @@ def login():
 @app.route('/form', methods=['GET', 'POST'])
 @login_required
 def form():
-    form = BudgetForm()
+    user_id = current_user.id
+    budget = Budget.query.filter_by(user_id=user_id).first()
+
+    form = BudgetForm(obj=budget)
+
     if form.validate_on_submit():
-        budget = Budget(
-            user_id=current_user.id,
-            age=form.age.data,
-            financial_discipline=form.financial_discipline.data,
-            spending_habits=form.spending_habits.data,
-            saving_importance=form.saving_importance.data,
-            short_term_savings=form.short_term_savings.data,
-            long_term_savings=form.long_term_savings.data,
-            investments=form.investments.data,
-            income=form.income.data,
-            housing_utilities=form.housing_utilities.data,
-            communication=form.communication.data,
-            transportation=form.transportation.data,
-            education=form.education.data,
-            savings=form.savings.data,
-            food=form.food.data,
-            entertainment=form.entertainment.data,
-            health_personal_care=form.health_personal_care.data,
-            clothing_laundry=form.clothing_laundry.data,
-            debt_payments=form.debt_payments.data,
-        )
+        if budget is None:
+            budget = Budget(user_id=user_id)
+        form.populate_obj(budget)  # Update the budget with form data
 
         db.session.add(budget)
         db.session.commit()
