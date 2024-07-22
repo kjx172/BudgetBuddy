@@ -249,61 +249,57 @@ def chatbot():
 def summary():
     last_budget = Budget.query.filter_by(user_id=current_user.id).order_by(Budget.id.desc()).first()
 
-    if last_budget:
-        income = last_budget.income
-        expenses = [
-            last_budget.housing_utilities,
-            last_budget.communication,
-            last_budget.transportation,
-            last_budget.education,
-            last_budget.savings,
-            last_budget.food,
-            last_budget.entertainment,
-            last_budget.health_personal_care,
-            last_budget.clothing_laundry,
-            last_budget.debt_payments
-        ]
-        financial_history = [
-            last_budget.short_term_savings,
-            last_budget.long_term_savings,
-            last_budget.investments
-        ]
+    if not last_budget:
+        flash('Please fill out the form before accessing the summary page.', 'error')
+        return redirect(url_for('form'))
 
-        needs = sum([expenses[0], expenses[5], expenses[2], expenses[1], expenses[3], expenses[7]])
-        wants = sum([expenses[6], expenses[8]])
-        savings_or_debt = sum([expenses[4], expenses[9]])
+    
+    income = last_budget.income
+    expenses = [
+        last_budget.housing_utilities,
+        last_budget.communication,
+        last_budget.transportation,
+        last_budget.education,
+        last_budget.savings,
+        last_budget.food,
+        last_budget.entertainment,
+        last_budget.health_personal_care,
+        last_budget.clothing_laundry,
+        last_budget.debt_payments
+    ]
+    financial_history = [
+        last_budget.short_term_savings,
+        last_budget.long_term_savings,
+        last_budget.investments
+    ]
 
-        actual_amounts = {
-            'Needs': needs,
-            'Wants': wants,
-            'Savings or Debt Repayment': savings_or_debt
-        }
+    needs = sum([expenses[0], expenses[5], expenses[2], expenses[1], expenses[3], expenses[7]])
+    wants = sum([expenses[6], expenses[8]])
+    savings_or_debt = sum([expenses[4], expenses[9]])
 
-        actual_percentages = {
-            'Needs': round((needs / income) * 100, 2) if income > 0 else 0,
-            'Wants': round((wants / income) * 100, 2) if income > 0 else 0,
-            'Savings or Debt Repayment': round((savings_or_debt / income) * 100, 2) if income > 0 else 0
-        }
+    actual_amounts = {
+        'Needs': needs,
+        'Wants': wants,
+        'Savings or Debt Repayment': savings_or_debt
+    }
 
-        ideal_amounts = {
-            'Needs': income * 0.50,
-            'Wants': income * 0.30,
-            'Savings or Debt Repayment': income * 0.20
-        }
+    actual_percentages = {
+        'Needs': round((needs / income) * 100, 2) if income > 0 else 0,
+        'Wants': round((wants / income) * 100, 2) if income > 0 else 0,
+        'Savings or Debt Repayment': round((savings_or_debt / income) * 100, 2) if income > 0 else 0
+    }
 
-        ideal_percentages = {
-            'Needs': 50,
-            'Wants': 30,
-            'Savings or Debt Repayment': 20
-        }
-    else:
-        income = 0
-        expenses = [0] * 10  # Default empty expenses list
-        financial_history = [0] * 3  # Default empty financial history
-        actual_amounts = {'Needs': 0, 'Wants': 0, 'Savings or Debt Repayment': 0}
-        actual_percentages = {'Needs': 0, 'Wants': 0, 'Savings or Debt Repayment': 0}
-        ideal_amounts = {'Needs': 0, 'Wants': 0, 'Savings or Debt Repayment': 0}
-        ideal_percentages = {'Needs': 0, 'Wants': 0, 'Savings or Debt Repayment': 0}
+    ideal_amounts = {
+        'Needs': income * 0.50,
+        'Wants': income * 0.30,
+        'Savings or Debt Repayment': income * 0.20
+    }
+
+    ideal_percentages = {
+        'Needs': 50,
+        'Wants': 30,
+        'Savings or Debt Repayment': 20
+    }
 
     return render_template('summary.html', income=income, expenses=expenses, financial_history=financial_history, actual_amounts=actual_amounts, actual_percentages=actual_percentages, ideal_amounts=ideal_amounts, ideal_percentages=ideal_percentages)
 
