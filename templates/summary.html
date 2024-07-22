@@ -17,29 +17,32 @@
     </div>
 
     <div class="container">
-        <h2 class="table-title">Your Financial History/Earnings</h2>
+        <h1 class="table-title">Your Financial History/Earnings</h2>
         <table class="financial-history-table">
             <tr>
                 <th class="category">Category</th>
                 <th>Amount</th>
             </tr>
             <tr>
+                <td>Monthly Income</td>
+                <td>${{ "%.2f"|format(income) }}</td>
+            </tr>
+            <tr>
                 <td>Short-Term Savings</td>
-                <td>{{ financial_history[0] }}</td>
+                <td>${{ "%.2f"|format(financial_history[0]) }}</td>
             </tr>
             <tr>
                 <td>Long-Term Savings</td>
-                <td>{{ financial_history[1] }}</td>
+                <td>${{ "%.2f"|format(financial_history[1]) }}</td>
             </tr>
             <tr>
                 <td>Investments</td>
-                <td>{{ financial_history[2] }}</td>
-            </tr>
-            <tr>
-                <td>Monthly Income</td>
-                <td>{{ income }}</td>
+                <td>${{ "%.2f"|format(financial_history[2]) }}</td>
             </tr>
         </table>
+        <div class="pie-chart-container">
+            <canvas id="financialHistoryPieChart"></canvas>
+        </div>
     </div>
 
     <div class="container">
@@ -52,45 +55,48 @@
             </tr>
             <tr>
                 <td>Housing and Utilities</td>
-                <td>{{ expenses[0] }}</td>
+                <td>${{ "%.2f"|format(expenses[0]) }}</td>
             </tr>
             <tr>
                 <td>Communication</td>
-                <td>{{ expenses[1] }}</td>
+                <td>${{ "%.2f"|format(expenses[1]) }}</td>
             </tr>
             <tr>
                 <td>Transportation</td>
-                <td>{{ expenses[2] }}</td>
+                <td>${{ "%.2f"|format(expenses[2]) }}</td>
             </tr>
             <tr>
                 <td>Education</td>
-                <td>{{ expenses[3] }}</td>
+                <td>${{ "%.2f"|format(expenses[3]) }}</td>
             </tr>
             <tr>
                 <td>Savings</td>
-                <td>{{ expenses[4] }}</td>
+                <td>${{ "%.2f"|format(expenses[4]) }}</td>
             </tr>
             <tr>
                 <td>Food</td>
-                <td>{{ expenses[5] }}</td>
+                <td>${{ "%.2f"|format(expenses[5]) }}</td>
             </tr>
             <tr>
                 <td>Entertainment</td>
-                <td>{{ expenses[6] }}</td>
+                <td>${{ "%.2f"|format(expenses[6]) }}</td>
             </tr>
             <tr>
                 <td>Health and Personal Care</td>
-                <td>{{ expenses[7] }}</td>
+                <td>${{ "%.2f"|format(expenses[7]) }}</td>
             </tr>
             <tr>
                 <td>Clothing</td>
-                <td>{{ expenses[8] }}</td>
+                <td>${{ "%.2f"|format(expenses[8]) }}</td>
             </tr>
             <tr>
                 <td>Debt Payments</td>
-                <td>{{ expenses[9] }}</td>
+                <td>${{ "%.2f"|format(expenses[9]) }}</td>
             </tr>
         </table>
+        <div class="pie-chart-container">
+            <canvas id="monthlyExpensesPieChart"></canvas>
+        </div>
     </div>
     <div class="second-container">
         <div class="second-summary-header">
@@ -110,23 +116,23 @@
                 </tr>
                 <tr>
                     <td>Needs</td>
-                    <td>{{ actual_amounts['Needs'] }}</td>
+                    <td>${{ "%.2f"|format(actual_amounts['Needs']) }}</td>
                     <td>{{ actual_percentages['Needs'] }}%</td>
-                    <td>{{ ideal_amounts['Needs'] }}</td>
+                    <td>${{ "%.2f"|format(ideal_amounts['Needs']) }}</td>
                     <td>{{ ideal_percentages['Needs'] }}%</td>
                 </tr>
                 <tr>
                     <td>Wants</td>
-                    <td>{{ actual_amounts['Wants'] }}</td>
+                    <td>${{ "%.2f"|format(actual_amounts['Wants']) }}</td>
                     <td>{{ actual_percentages['Wants'] }}%</td>
-                    <td>{{ ideal_amounts['Wants'] }}</td>
+                    <td>${{ "%.2f"|format(ideal_amounts['Wants']) }}</td>
                     <td>{{ ideal_percentages['Wants'] }}%</td>
                 </tr>
                 <tr>
-                    <td>Savings or Debt Repayment</td>
-                    <td>{{ actual_amounts['Savings or Debt Repayment'] }}</td>
+                    <td>Monthly Savings/Debt Payments</td>
+                    <td>${{ "%.2f"|format(actual_amounts['Savings or Debt Repayment']) }}</td>
                     <td>{{ actual_percentages['Savings or Debt Repayment'] }}%</td>
-                    <td>{{ ideal_amounts['Savings or Debt Repayment'] }}</td>
+                    <td>${{ "%.2f"|format(ideal_amounts['Savings or Debt Repayment']) }}</td>
                     <td>{{ ideal_percentages['Savings or Debt Repayment'] }}%</td>
                 </tr>
             </table>
@@ -146,14 +152,22 @@
         // Ensuring that the JSON data is safely embedded in JavaScript
         const actualPercentages = JSON.parse('{{ actual_percentages|tojson|safe }}');
         const idealPercentages = JSON.parse('{{ ideal_percentages|tojson|safe }}');
-        const unaccounted = 100 - actualPercentages['Needs'] - actualPercentages['Wants'] - actualPercentages['Savings or Debt Repayment'];
+        const unaccountedPercentage = 100 - actualPercentages['Needs'] - actualPercentages['Wants'] - actualPercentages['Savings or Debt Repayment'];
+
+        const expenses = JSON.parse('{{ expenses|tojson|safe }}');
+        const income = parseFloat('{{ income|tojson|safe }}');
+        // Calculate total expenses
+        const totalExpenses = expenses.reduce((acc, expense) => acc + parseFloat(expense), 0);
+
+        // Calculate unaccounted dollars
+        const unaccountedDollars = income - totalExpenses;
     
         const data = {
             labels: ['Needs', 'Wants', 'Savings or Debt Repayment', 'Unaccounted for'],
             datasets: [
                 {
                     label: 'Actual Percentages',
-                    data: [actualPercentages['Needs'], actualPercentages['Wants'], actualPercentages['Savings or Debt Repayment'], unaccounted],
+                    data: [actualPercentages['Needs'], actualPercentages['Wants'], actualPercentages['Savings or Debt Repayment'], unaccountedPercentage],
                     backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#808080'],
                     hoverOffset: 4
                 },
@@ -181,7 +195,7 @@
                                 const datasetLabel = context.dataset.label || '';
                                 const label = context.label || '';
                                 const value = context.raw || 0;
-                                return `${datasetLabel} - ${label}: ${value}%`;
+                                return `${datasetLabel} - ${label}: ${value.toFixed(2)}%`;
                             }
                         }
                     }
@@ -192,6 +206,86 @@
         const spendingPieChart = new Chart(
             document.getElementById('spendingPieChart'),
             config
+        );
+
+        // Financial History Pie Chart
+        const financialHistoryData = {
+            labels: ['Short-Term Savings', 'Long-Term Savings', 'Investments'],
+            datasets: [
+                {
+                    label: 'Financial History',
+                    data: JSON.parse('{{ financial_history|tojson|safe }}'),
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                    hoverOffset: 4
+                }
+            ]
+        };
+
+        const financialHistoryConfig = {
+            type: 'pie',
+            data: financialHistoryData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.raw || 0;
+                                return `${label}: $${value.toFixed(2)}`;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        const financialHistoryPieChart = new Chart(
+            document.getElementById('financialHistoryPieChart'),
+            financialHistoryConfig
+        );
+
+        // Monthly Expenses Pie Chart
+        const monthlyExpensesData = {
+            labels: ['Housing and Utilities', 'Communication', 'Transportation', 'Education', 'Savings', 'Food', 'Entertainment', 'Health and Personal Care', 'Clothing', 'Debt Payments', 'Unaccounted for'],
+            datasets: [
+                {
+                    label: 'Monthly Expenses',
+                    data: [...expenses, unaccountedDollars],
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#29335C', '#B8EBD0', '#DAD4EF', '#05299E', '#4BC0C0', '#06D6A0', '#0CCE6B', '#808080'],
+                    hoverOffset: 4
+                }
+            ]
+        };
+
+        const monthlyExpensesConfig = {
+            type: 'pie',
+            data: monthlyExpensesData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.raw || 0;
+                                return `${label}: $${value.toFixed(2)}`;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        const monthlyExpensesPieChart = new Chart(
+            document.getElementById('monthlyExpensesPieChart'),
+            monthlyExpensesConfig
         );
     </script>
     
