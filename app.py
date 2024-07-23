@@ -81,6 +81,7 @@ class Budget(db.Model):
     health_personal_care = db.Column(db.Float, nullable=False)
     clothing_laundry = db.Column(db.Float, nullable=False)
     debt_payments = db.Column(db.Float, nullable=False)
+    form_submissions = db.Column(db.Integer, nullable=False, default=1)
 
 def validate_username(username):
     existing_user_username = User.query.filter_by(username=username).first()
@@ -131,16 +132,19 @@ def login():
 @login_required
 def form():
     user_id = current_user.id
-    budget = Budget.query.filter_by(user_id=user_id).first()
+    budget = Budget.query.filter_by(user_id=user_id).order_by(Budget.form_submissions.desc()).first()
 
     form = BudgetForm(obj=budget)
 
     if form.validate_on_submit():
-        if budget is None:
-            budget = Budget(user_id=user_id)
-        form.populate_obj(budget)  # Update the budget with form data
+        new_budget = Budget(user_id=user_id)
+        form.populate_obj(new_budget)  # Populate the new budget with form data
 
-        db.session.add(budget)
+        # Determine the form submission number
+        if budget:
+            new_budget.form_submissions = budget.form_submissions + 1
+
+        db.session.add(new_budget)
         db.session.commit()
 
         return redirect(url_for('summary'))
@@ -247,13 +251,33 @@ def chatbot():
 @app.route('/summary')
 @login_required
 def summary():
-    last_budget = Budget.query.filter_by(user_id=current_user.id).order_by(Budget.id.desc()).first()
+    budgets = Budget.query.filter_by(user_id=current_user.id).order_by(Budget.form_submissions.desc()).all()
 
-    if not last_budget:
+    if not budgets:
         flash('Please fill out the form before accessing the summary page.', 'error')
         return redirect(url_for('form'))
 
-    
+    last_budget = budgets[0]
+
+    if len(budgets) > 1:
+        previous_budget = budgets[1]
+        percentage_changes = [
+            ((last_budget.housing_utilities - previous_budget.housing_utilities) / previous_budget.housing_utilities * 100) if previous_budget.housing_utilities != 0 else (last_budget.housing_utilities * 100 if last_budget.housing_utilities != 0 else 0),
+            ((last_budget.communication - previous_budget.communication) / previous_budget.communication * 100) if previous_budget.communication != 0 else (last_budget.communication * 100 if last_budget.communication != 0 else 0),
+            ((last_budget.transportation - previous_budget.transportation) / previous_budget.transportation * 100) if previous_budget.transportation != 0 else (last_budget.transportation * 100 if last_budget.transportation != 0 else 0),
+            ((last_budget.education - previous_budget.education) / previous_budget.education * 100) if previous_budget.education != 0 else (last_budget.education * 100 if last_budget.education != 0 else 0),
+            ((last_budget.savings - previous_budget.savings) / previous_budget.savings * 100) if previous_budget.savings != 0 else (last_budget.savings * 100 if last_budget.savings != 0 else 0),
+            ((last_budget.food - previous_budget.food) / previous_budget.food * 100) if previous_budget.food != 0 else (last_budget.food * 100 if last_budget.food != 0 else 0),
+            ((last_budget.entertainment - previous_budget.entertainment) / previous_budget.entertainment * 100) if previous_budget.entertainment != 0 else (last_budget.entertainment * 100 if last_budget.entertainment != 0 else 0),
+            ((last_budget.health_personal_care - previous_budget.health_personal_care) / previous_budget.health_personal_care * 100) if previous_budget.health_personal_care != 0 else (last_budget.health_personal_care * 100 if last_budget.health_personal_care != 0 else 0),
+            ((last_budget.clothing_laundry - previous_budget.clothing_laundry) / previous_budget.clothing_laundry * 100) if previous_budget.clothing_laundry != 0 else (last_budget.clothing_laundry * 100 if last_budget.clothing_laundry != 0 else 0),
+            ((last_budget.debt_payments - previous_budget.debt_payments) / previous_budget.debt_payments * 100) if previous_budget.debt_payments != 0 else (last_budget.debt_payments * 100 if last_budget.debt_payments != 0 else 0),
+        ]
+    else:
+        percentage_changes = [0] * 10
+
+    all_changes_zero = all(change == 0 for change in percentage_changes)
+
     income = last_budget.income
     expenses = [
         last_budget.housing_utilities,
@@ -301,7 +325,17 @@ def summary():
         'Savings or Debt Repayment': 20
     }
 
-    return render_template('summary.html', income=income, expenses=expenses, financial_history=financial_history, actual_amounts=actual_amounts, actual_percentages=actual_percentages, ideal_amounts=ideal_amounts, ideal_percentages=ideal_percentages)
+    return render_template('summary.html', 
+                           income=income, 
+                           expenses=expenses, 
+                           financial_history=financial_history, 
+                           actual_amounts=actual_amounts, 
+                           actual_percentages=actual_percentages, 
+                           ideal_amounts=ideal_amounts, 
+                           ideal_percentages=ideal_percentages,
+                           percentage_changes=percentage_changes,
+                           all_changes_zero=all_changes_zero)
+
 
 @app.route('/about', methods=['GET', 'POST'])
 def about():

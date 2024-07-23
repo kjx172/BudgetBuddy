@@ -148,3 +148,10 @@ body {
 .advice-box a:hover {
     background: #00072D;
 }
+
+.no-change-message {
+    text-align: center;
+    color: #FF6384;
+    font-weight: bold;
+    margin-top: 10px;
+}
