@@ -29,7 +29,7 @@
         // Function to enable or disable input elements
         function toggleInputElements(disabled) {
             $('textarea[name=message]').prop('disabled', disabled);
-            $('#send-button').prop('disabled', disabled);
+            $('input[type=submit]').prop('disabled', disabled);
         }
 
         // Function to adjust textarea height based on content
@@ -64,6 +64,11 @@
             // Scroll to the bottom of the container when a new message is added
             $('.messages').scrollTop($('.messages')[0].scrollHeight);
 
+            // Chatbot displays loading message
+            var loadingMessage = $('<div class="message"><div class="loading">...</div></div>');
+            $('.messages').append(loadingMessage);
+            $('.messages').scrollTop($('.messages')[0].scrollHeight);
+
             // Send the user message to the server
             $.ajax({
                 url: "/chat",
@@ -71,14 +76,17 @@
                 contentType: "application/json",
                 data: JSON.stringify({ message: userMessage }),
                 success: function(response) {
+                    loadingMessage.remove();
                     // Display the bot's response for successful responses with proper line breaks
                     $('.messages').append('<div class="message"><div class="bot">' + response.message.replace(/\n/g, '<br>') + '</div></div>');
-                    // Scroll to the bottom of the container after adding the response
-                    $('.messages').scrollTop($('.messages')[0].scrollHeight);
-                    // Re-enable input elements after processing
-                    toggleInputElements(false);
-                },
+                        // Scroll to the bottom of the container after adding the response
+                        $('.messages').scrollTop($('.messages')[0].scrollHeight);
+                        // Re-enable input elements after processing
+                        toggleInputElements(false);
+                    },
+                    
                 error: function() {
+                    loadingMessage.remove(); 
                     // Handle AJAX request failure (e.g., server not responding)
                     $('.messages').append('<div class="message"><div class="bot">Something went wrong</div></div>');
                     $('.messages').scrollTop($('.messages')[0].scrollHeight);

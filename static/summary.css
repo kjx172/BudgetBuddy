@@ -147,6 +147,7 @@ h2 {
 }
 
 .advice-box a:hover {
+<<<<<<< HEAD
     background: #ffffff;
     color:#caa56f;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
@@ -163,3 +164,14 @@ table .sub {
     color: #FFFFFF;
     border-radius: 8px;
 }
+=======
+    background: #00072D;
+}
+
+.no-change-message {
+    text-align: center;
+    color: #FF6384;
+    font-weight: bold;
+    margin-top: 10px;
+}
+>>>>>>> 10c3327b08cf0b48a7a389f4ba81aa0d3afbb699

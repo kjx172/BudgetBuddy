@@ -1,4 +1,5 @@
 import pytest
+from unittest.mock import patch
 from app import app, db, User
 
 @pytest.fixture
@@ -14,12 +15,16 @@ def client():
             db.session.remove()
             db.drop_all()
 
-def test_home_page(client):
+@patch.dict('os.environ', {'OPENAI_API_KEY': 'test_key'})  # Mock the environment variable
+@patch('app.OpenAI')  # Mock the OpenAI client
+def test_home_page(mock_openai, client):
     response = client.get('/')
     assert response.status_code == 200
     assert b'Login' in response.data  # Assuming the login page contains 'Login'
 
-def test_user_registration(client):
+@patch.dict('os.environ', {'OPENAI_API_KEY': 'test_key'})  # Mock the environment variable
+@patch('app.OpenAI')  # Mock the OpenAI client
+def test_user_registration(mock_openai, client):
     response = client.post('/login', data={
         'username': 'testuser',
         'password': 'testpassword',

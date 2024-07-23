@@ -13,11 +13,19 @@
 </head>
 <body>
     <div class="header">
+<<<<<<< HEAD
         <h1>A Summary of your Expenses</h1>
     </div>
 
     <div class="container">
         <h2 class="table-title">Your Financial History/Earnings</h2>
+=======
+        <h2>A Summary of Your Finances</h2>
+    </div>
+
+    <div class="container">
+        <h1 class="table-title">Your Financial History/Earnings</h1>
+>>>>>>> 10c3327b08cf0b48a7a389f4ba81aa0d3afbb699
         <table class="financial-history-table">
             <tr>
                 <th class="category">Category</th>
@@ -143,6 +151,17 @@
         <canvas id="spendingPieChart"></canvas>
     </div>
 
+    <!-- Add the bar chart container -->
+    <div class="container">
+        <h2 class="table-title">Change of Monthly Expenses Since Last Form Submission</h2>
+        {% if all_changes_zero %}
+        <p class="no-change-message">There are no changes in your monthly expenses since the last submission.</p>
+        {% endif %}
+        <div class="bar-chart-container">
+            <canvas id="expenseChangeBarChart"></canvas>
+        </div>
+    </div>
+
     <div class="advice-box">
         <p><i><b>To receive more personalized recommendations from your financial advisor, Bud:</b></i></p>
         <p><a href="{{ url_for('chatbot_site') }}">Click Here</a></p>
@@ -174,7 +193,7 @@
                 {
                     label: 'Ideal Percentages',
                     data: [idealPercentages['Needs'], idealPercentages['Wants'], idealPercentages['Savings or Debt Repayment']],
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                    backgroundColor: ['#FF9AA2', '#80C1FF', '#FFE066'], // Brighter shades for the ideal percentages
                     hoverOffset: 4
                 }
             ]
@@ -287,8 +306,63 @@
             document.getElementById('monthlyExpensesPieChart'),
             monthlyExpensesConfig
         );
-    </script>
-    
 
+        // Added bar chart script
+        const percentageChanges = JSON.parse('{{ percentage_changes|tojson|safe }}');
+
+        const expenseCategories = [
+            'Housing and Utilities', 'Communication', 'Transportation', 'Education', 'Savings',
+            'Food', 'Entertainment', 'Health and Personal Care', 'Clothing', 'Debt Payments'
+        ];
+
+        const barData = {
+            labels: expenseCategories,
+            datasets: [{
+                label: 'Percentage Change',
+                data: percentageChanges,
+                backgroundColor: percentageChanges.map(change => change >= 0 ? '#00e46e' : '#ff1649'),
+            }]
+        };
+
+        const barConfig = {
+            type: 'bar',
+            data: barData,
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += context.parsed.x.toFixed(2) + '%';
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        const expenseChangeBarChart = new Chart(
+            document.getElementById('expenseChangeBarChart'),
+            barConfig
+        );
+    </script>
 </body>
 {% endblock %}
