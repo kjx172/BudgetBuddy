@@ -1,6 +1,6 @@
 # BudgetBuddy
 
-BudgetBuddy is a web application designed to help college students cultivate better financial habits and track their expenses
+BudgetBuddy is a web application designed to help college students cultivate better financial habits and track their expenses.
 
 ## Features
 * **Expense Tracking:** Input and categorize various expenses such as housing, utilities, food, entertainment, etc.
@@ -31,13 +31,13 @@ BudgetBuddy is a web application designed to help college students cultivate bet
    ```sh
    pip install -r requirements.txt
 3. **Set up environment variables:**
-   Create a .env file in the root directory and add your Ticketmaster API credentials:
+   Create a .env file in the root directory and add your OpenAI API credentials:
    ```sh
-   API_KEY=your_ticketmaster_api_key
-   API_SECRET=your_ticketmaster_api_secret
+   OPENAI_API_KEY=your_openai_api_key
+   SECRET_KEY=your_openai_api_secret
 4. **Run the application:**
    ```sh
-   python app.py
+   flask --app app --debug run
    The application will be accessible at http://127.0.0.1:5000/.
 
 ## Contributing
