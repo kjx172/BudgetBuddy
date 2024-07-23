@@ -153,7 +153,6 @@ def form():
 @app.route('/logout')
 @login_required
 def logout():
-    session.pop('conversation', None)
     logout_user()
     flash('You have been logged out.', 'info')
     return redirect(url_for('login'))
@@ -168,13 +167,8 @@ def chatbot_site():
 def chatbot():
     user_input = request.json.get('message')
 
-    if 'conversation' not in session:
-        session['conversation'] = []
-
     if user_input.lower() == 'exit':
-        chat_response = "Goodbye!"
-        session['conversation'].append({'sender': 'bot', 'message': chat_response})
-        response = {"message": chat_response}
+        response = {"message": "Goodbye!"}
     else:
         last_budget = Budget.query.filter_by(user_id=current_user.id).order_by(Budget.id.desc()).first()
         if last_budget:
@@ -251,11 +245,8 @@ def chatbot():
         except Exception as e:
             print(f"Error: {str(e)}")
             response = {"message": "Something went wrong"}
-        
-        session['conversation'].append({'sender': 'user', 'message': user_input})
-        session['conversation'].append({'sender': 'bot', 'message': response['message']})
 
-    return jsonify({'conversation': session.get('conversation', [])})
+    return jsonify(response)
 
 @app.route('/summary')
 @login_required
