@@ -42,7 +42,7 @@
                     <span class="form-error">[{{ error }}]</span>
                 {% endfor %}
             </div>
-            <div>
+            <div class="no-bullets">
                 <h3>Financial Discipline</h3>
                 {{ form.financial_discipline.label }}
                 <span class="tooltip-custom">
@@ -54,7 +54,7 @@
                     <span class="form-error">[{{ error }}]</span>
                 {% endfor %}
             </div>
-            <div>
+            <div class="no-bullets">
                 <h3>Spending Habits</h3>
                 {{ form.spending_habits.label }}
                 <span class="tooltip-custom">
@@ -65,8 +65,8 @@
                 {% for error in form.spending_habits.errors %}
                     <span class="form-error">[{{ error }}]</span>
                 {% endfor %}
-            </div>
-            <div>
+            </div >
+            <div class="no-bullets">
                 <h3>Saving Importance</h3>
                 {{ form.saving_importance.label }}
                 <span class="tooltip-custom">

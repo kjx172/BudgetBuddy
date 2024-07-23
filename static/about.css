@@ -1,5 +1,5 @@
 body {
-    font-family: 'Lato', sans-serif;
+    font-family: "Poppins", sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
@@ -12,7 +12,7 @@ nav {
     align-items: center;
     padding: 20px 50px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    background-color: #0A2472;
+    background-color: #21305a;
     color: #fff; 
 }
 
@@ -28,7 +28,9 @@ nav img {
 
 nav button {
     text-decoration: none;
-    color: #0A2472;
+    font-family: "Poppins", sans-serif;
+    color: #21305a;
+    font-weight: 500;
     background-color: #fff;
     font-size: 20px;
     border: none;
@@ -40,18 +42,35 @@ nav button {
 }
 
 nav button:hover {
-    background-color: #b2bddf;
+    background-color: #caa56f;
     color: #fff;
+    cursor: pointer;
 }
 
 .container {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 20px;
 }
 
 h1, h2, h3 {
     color: #0A2472;
+}
+
+h2 {
+    border-bottom: solid #caa56f;
+    padding-bottom: 5px;
+    width: max-content;
+    color: #185e8d;
+}
+
+h3 {
+    display: block;
+    border-bottom: solid #caa56f;
+    padding-bottom: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #12476a;
 }
 
 p {
@@ -80,19 +99,20 @@ a:hover {
     flex-wrap: wrap;
     gap: 20px;
     justify-content: space-between;
-    background-color: #cccccc; /* Darker gray background for the section */
+    background-color: #a89065; /* Darker gray background for the section */
     padding: 20px;
     border-radius: 8px;
 }
 
 .team-member {
-    background-color: #e6e6e6;
+    background-color: #ffffff;
     text-align: center;
     border-radius: 8px;
     padding: 15px;
     flex: 1 1 calc(50% - 20px);
     box-sizing: border-box;
     margin-bottom: 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
 .team-member.center {

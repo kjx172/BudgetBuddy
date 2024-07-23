@@ -17,6 +17,10 @@ from functools import wraps
 from dotenv import load_dotenv
 load_dotenv()
 
+#TODO Try to code for focused tabs (Create a function using python -> when you navigate to a tab, keep track of the page name and compare to button name to be able to change the button's css -> pageUrl = buttonUrl)
+#TODO When new signup -> check if logged in database (new column "filled out form") -> if false summary button locked -> form submitted then unlock the summary button 
+
+
 # Fetch the API key from the environment variable
 api_key = os.getenv('OPENAI_API_KEY')
 

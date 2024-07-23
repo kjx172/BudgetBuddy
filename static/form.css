@@ -15,9 +15,7 @@ header {
     color: #ffff;
 }
 
-header h1 {
-    color: white;
-}
+ 
 
 .nav-title {
     margin-right: auto;
@@ -51,15 +49,35 @@ header button:hover {
 main {
     margin: 20px 50px;
     text-align: center; /* Center the text in the main section */
+    display: grid;
 }
-
+main h1 {
+    display: block;
+    border-bottom: solid #caa56f;
+    padding-bottom: 5px;
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+    color: #185e8d;
+}
+main h4 {
+    margin-top: 0;
+    font-weight: 400px;
+ }
+h3 {
+    border-bottom: solid #caa56f;
+    padding-bottom: 5px;
+    color: #21305a;
+    width: max-content;
+}
 form {
-    max-width: 600px;
+    max-width: 700px;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
     background-color: #185e8d;
     text-align: left; /* Keep the text in the form elements left-aligned */
+    border-radius: 12px;
 }
 
 form h2, form h3 {
@@ -67,11 +85,12 @@ form h2, form h3 {
 }
 
 input[type=text] {
+    font-family: "Poppins", sans-serif;
     width: calc(100% - 24px); /* Adjusted to accommodate left and right padding */
     padding-left: 12px; /* Add padding to the left */
     margin-bottom: 10px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
 }
 
 h1, h2, h3 {
@@ -110,10 +129,15 @@ div h3 {
     color: #333;
 }
 
+.no-bullets li {
+    list-style-type: none;
+    padding-left: -20px;
+}
+
 .error {
     background-color: #f4f4f4;
     border: none;
-    color: red;
+    color: #ff9d00;
     font-size: medium;
     margin-top: 5px;
     text-align: center;
@@ -130,11 +154,13 @@ div h3 {
 .tooltip-custom .tooltip-text {
     visibility: hidden;
     width: 200px;
-    background-color: #555;
+    background-color: #caa56f;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    font-size: 0.8rem;
     color: #fff;
     text-align: center;
     border-radius: 5px;
-    padding: 5px 0;
+    padding: 5px;
     position: absolute;
     z-index: 1;
     bottom: 125%; /* Position above the icon */

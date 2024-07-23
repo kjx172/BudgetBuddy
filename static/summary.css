@@ -5,9 +5,19 @@ body, div, table {
 }
 
 body {
-    font-family: "Lato", sans-serif;
+    font-family: "Poppins", sans-serif;
     margin: 0;
     padding: 0; 
+}
+
+h2 {
+    display: block;
+    border-bottom: solid #caa56f;
+    padding-bottom: 5px;
+    width: max-content;
+    margin-left: auto;
+    margin-right: auto;
+    color: #185e8d;
 }
 
 .header {
@@ -15,14 +25,17 @@ body {
     margin: 30px auto 0 auto; /* Adds white space between the navbar and the header, centers horizontally */
     padding: 20px;
     text-align: center;
-    background: #0A2472;
+    background: #084B7C;
     color: #FFFFFF;
     font-size: 30px;
+    border-radius: 12px;
+    border: none;
 }
 
-.header h2 {
+.header h1 {
     color: white; /* Explicitly set the text color to white */
 }
+
 
 		
 .table-title {
@@ -42,7 +55,7 @@ body {
     font-size: 16px;
 }
 .financial-history-table th, .financial-history-table td {
-    border: 2px solid #00072D;
+    border: 2px solid white;
     padding: 15px;
     background-color: #f2f2f2;
 }
@@ -51,9 +64,6 @@ body {
 }
 .financial-history-table td {
     text-align: left;
-}
-.financial-history-table tr:first-child th {
-    background-color: #A6E1FA;
 }
 
 .summary-header, .second-summary-header {
@@ -76,7 +86,7 @@ body {
 }
 
 .expenses-table th, .expenses-table td, .second-expenses-table th, .second-expenses-table td {
-    border: 2px solid #00072D;
+    border: 2px solid white;
     padding: 15px;
     background-color: #f2f2f2;
 }
@@ -97,17 +107,8 @@ body {
     text-align: center; 
 }
 
-.expenses-table tr:first-child th,
-.expenses-table tr:nth-child(2) th,
-.second-expenses-table tr:first-child th,
-.second-expenses-table tr:nth-child(1) th {
-    background-color: #A6E1FA;
-}
-
 /* Ensure the rightmost border of the table is visible */
-.second-expenses-table th:last-child, .second-expenses-table td:last-child {
-    border-right: 2px solid #00072D;
-}
+
 
 .pie-chart-container {
     width: 800px;
@@ -136,7 +137,7 @@ body {
 .advice-box a {
     display: inline-block;
     padding: 10px 20px;
-    background: #0A2472;
+    background: #caa56f;
     color: #FFFFFF;
     text-decoration: none;
     font-weight: bold;
@@ -146,5 +147,19 @@ body {
 }
 
 .advice-box a:hover {
-    background: #00072D;
+    background: #ffffff;
+    color:#caa56f;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+table .category {
+    background: #ab8244;
+    color: #FFFFFF;
+    border-radius: 8px;
+}
+
+table .sub {
+    background: #caa56f;
+    color: #FFFFFF;
+    border-radius: 8px;
 }

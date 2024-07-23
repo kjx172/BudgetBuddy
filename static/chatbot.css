@@ -1,5 +1,5 @@
 body {
-    font-family: 'Lato', sans-serif;
+    font-family: "Poppins", sans-serif;
     margin: 0;
     padding: 0; 
 }
@@ -9,9 +9,10 @@ body {
     margin: 30px auto 0 auto; /* Adds white space between the navbar and the header, centers horizontally */
     padding: 20px;
     text-align: center;
-    background: #0A2472;
+    background: #185e8d;
     color: #FFFFFF;
     font-size: 30px;
+    border-radius: 12px;
 }
 
 .header h2 {
@@ -43,9 +44,10 @@ body {
     align-items: center;
     padding: 16px;
     text-align: center;
-    background: #0A2472;
+    background: #185e8d;
     color: #FFFF;
     font-size: 30px;
+    border-radius: 8px;
 }
 
 .input form {
@@ -63,8 +65,8 @@ body {
     height: 100px;
     padding: 10px;
     font-size: 16px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border: 2px solid #A6E1FA;
+    font-family: "Poppins", sans-serif;
+    border: 2px solid #a2895a;
     background: white;
     resize: none;
     border-radius: 10px;
@@ -72,18 +74,22 @@ body {
 }
 
 .input input[type=submit] {
+    font-family: "Poppins", sans-serif;
     padding: 10px 20px;
     font-size: 17px;
     border: none;
-    background: #0E6BA8;
+    background: #caa56f;
     color: white;
     cursor: pointer;
     border-radius: 10px;
     width: 100px;
+    font-weight: 600;
 }
 
 .input input[type=submit]:hover {
-    background: #00072D;
+    background: #fff;
+    color: #caa56f;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
 .messages {
@@ -96,6 +102,8 @@ body {
     display: flex;
     flex-direction: column;
     top: 0;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
 }
 
 .message {
@@ -113,18 +121,19 @@ body {
 }
 
 .message .bot {
-    padding: 10px;
+    padding: 10px 15px;
     font-size: 17px;
     border: none;
     width: 80%;
-    background: #0A2472;
+    background: #21305a;
     color: white;
     cursor: pointer;
     border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
 .message .bot:hover {
-    background: #00072D;
+    background: #1d244c;
 }
 
 .message .user {
@@ -132,10 +141,11 @@ body {
     font-size: 17px;
     border: none;
     width: 80%;
-    background: #0E6BA8;
+    background:#185e8d; 
     color: white;
     cursor: pointer;
     border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 
 .message .user:hover {
