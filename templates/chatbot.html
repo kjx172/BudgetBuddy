@@ -40,25 +40,6 @@
             document.body.scrollTop = document.body.scrollHeight;
         }
 
-        function loadConversation() {
-            $.get('/chat', function(data) {
-                data.conversation.forEach(function(msg) {
-                    var messageDiv = $('<div class="message"></div>').text(msg.message);
-                    if (msg.sender === 'user') {
-                        messageDiv.addClass('user');
-                    } else {
-                        messageDiv.addClass('bot');
-                    }
-                    $('.messages').append(messageDiv);
-                });
-                $('.messages').scrollTop($('.messages')[0].scrollHeight);
-            });
-        }
-
-        $(document).ready(function() {
-            loadConversation();
-        });
-
         // When the form is submitted, send the message to the server
         $('form').submit(function (e) {
             e.preventDefault();
@@ -97,20 +78,13 @@
                 success: function(response) {
                     loadingMessage.remove();
                     // Display the bot's response for successful responses with proper line breaks
-                    response.conversation.forEach(function(msg) {
-                        var messageDiv = $('<div class="message"></div>').text(msg.message);
-                        if (msg.sender === 'user') {
-                            messageDiv.addClass('user');
-                        } else {
-                            messageDiv.addClass('bot');
-                        }
-                        $('.messages').append(messageDiv);
-                    });
-                    // Scroll to the bottom of the container after adding the response
-                    $('.messages').scrollTop($('.messages')[0].scrollHeight);
-                    // Re-enable input elements after processing
-                    toggleInputElements(false);
-                },
+                    $('.messages').append('<div class="message"><div class="bot">' + response.message.replace(/\n/g, '<br>') + '</div></div>');
+                        // Scroll to the bottom of the container after adding the response
+                        $('.messages').scrollTop($('.messages')[0].scrollHeight);
+                        // Re-enable input elements after processing
+                        toggleInputElements(false);
+                    },
+                    
                 error: function() {
                     loadingMessage.remove(); 
                     // Handle AJAX request failure (e.g., server not responding)
